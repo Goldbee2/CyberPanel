@@ -1,4 +1,6 @@
 body {
+  color: rgb(233, 70, 189);
+  background-color:rgb(35, 5, 95);
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
@@ -6,3 +8,5 @@ body {
 a {
   color: #00B7FF;
 }
+
+
