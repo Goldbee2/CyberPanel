@@ -1,58 +1,26 @@
+async function fetchWeatherData() {
+  var geoData = require("./geoData");
+  var apiKeys = require("./apiKeys");
+  var key = apiKeys.getKey("weather");
+  var weatherPromise = new Promise(() => {});
 
-
-
-
-
-
-function getWeather(){
-
-
-    /**
-     * If weather data doesn't exist, request it from server
-     * If weather data does exist, return it
-     */
-
-
+  let data = geoData
+    .getData()
+    .then((data) => {
+      data = data.response;
+      let lat = data.lat;
+      let lon = data.lon;
+      return fetch(
+        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${key}&units=imperial`
+      );
+    })
+    .then((a) => {
+      return a.json();
+    })
+    .then((b) => {
+      return b;
+    });
+  return data;
 }
 
-
-
-
-
-
-
-
-
-async function fetchWeatherData(lat, long, apiKey) {
-
-}
-
-let personalInfo = require("./personalInfo").parsedFields;
-var apiKeys = require("./apiKeys");
-console.log(apiKeys.getKey('weather'));
-let zipCode = personalInfo.ZIP_CODE;
-let countryCode = personalInfo.COUNTRY_CODE;
-
-
-var geoData = function(){
-    var instance;
-
-
-}
-
-
-
-// const { response: geoData, error } = await fetchGeocodingData(
-//   zipCode,
-//   countryCode,
-//   key
-// );
-
-// if (error) {
-//   console.log(`Error ${error.cod}: ${error.message}`);
-//   return null;
-// }
-
-// console.log(geoData);
-
-fetchWeatherData();
+module.exports = { fetchWeatherData };
