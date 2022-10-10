@@ -1,14 +1,14 @@
-var apiKeys = require('../apiKeys')
+var getWeather = require("../getWeather");
 var express = require("express");
 var router = express.Router();
 
+router.get("/", function (req, res, next) {
+  let a = getWeather.fetchWeatherData();
+  a.then((b) => {
+    res.setHeader("content-type", "application/json");
+    res.send(b);
+  });
 
-
-
-
-router.get("/", function(req, res, next){
-    res.send(apiKeys.getKey('weather'));
-})
-
+});
 
 module.exports = router;
