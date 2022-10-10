@@ -1,34 +1,38 @@
 // Singleton
-var ApiKeys = (function() {
+var ApiKeys = function () {
   var instance;
 
-  function createInstance(){
+  function createInstance() {
     var newInstance = require("dotenv").config({
-      path: "./backend/APIKeys.env",
+      path: "./APIKeys.env",
     }).parsed;
     return newInstance;
   }
 
-  function getInstance(){
-    if(!instance){
+  function getInstance() {
+    if (!instance) {
       instance = createInstance();
     }
     return instance;
   }
 
   return getInstance();
-})
+};
 
 function getKey(apiName) {
   var parsedKeys = ApiKeys();
   switch (apiName) {
     case "weather":
-      return parsedKeys.OPENWEATHER_KEY;
+      try {
+        return parsedKeys.OPENWEATHER_KEY;
+      } catch (err) {
+        console.log(err);
+        return "ERROR_KEY_NOT_FOUND";
+      }
     default:
       console.log("Invalid api name passed to getKey: " + apiName);
       return "";
   }
 }
-
 
 module.exports = { getKey };
