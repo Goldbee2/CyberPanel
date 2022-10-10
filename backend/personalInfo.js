@@ -1,5 +1,5 @@
 var parsedFields = require("dotenv").config({
-  path: "./backend/personalInfo.env",
+  path: "./personalInfo.env",
 }).parsed;
 
 module.exports = { parsedFields};
