@@ -1,14 +1,11 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React from "react";
+import { NavLink } from "react-router-dom";
 
+function PanelComponent(props) {
+  const panelHeight = 0;
+  const panelWidth = 0;
 
-function PanelComponent({componentFunction, themeInfo}){
-    const panelHeight = 0;
-    const panelWidth = 0;
-
-
-    // basically: try to run function passed to it and contain it in nicely formatted panel according to theme.
-    // ideally components should take in theme info as maybe a name or set of css styles or pointer to a css file? and then output rendered component accordingly. 
-
-    return null;
+  return <div className="panel-component">{props.children}</div>;
 }
+
+export default PanelComponent;
