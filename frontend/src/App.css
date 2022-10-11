@@ -1,16 +1,30 @@
+body{
+  background-color: rgb(221, 238, 226);
+}
+
 .error-message{
   color:rgb(199, 47, 121);
 }
 
 .panel-component{
+  background-color: rgb(232, 244, 239);
   border-radius: 20px;
   padding: 1rem 2rem;
   width: fit-content;
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  box-shadow: rgba(7, 38, 2, 0.124) 0px 2px 4px, rgba(1, 44, 9, 0.2) 0px 7px 13px -3px, rgba(54, 103, 66, 0.19) 0px -3px 0px inset;
   margin: 1rem;
 }
 
+.panel-component p{
+  margin: auto;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 0.4rem;
+  color:rgb(143, 206, 129);
+}
+
 #weather-icon{
-  filter: drop-shadow(0px 0px 3px rgba(0, 0, 0, 0.4));
+  filter: drop-shadow(0px 4px 4px rgba(50, 112, 31, 0.185));
   width: 6rem;
+  /* margin:0; */
 }
