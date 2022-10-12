@@ -5,7 +5,10 @@ function PanelComponent(props) {
   const panelHeight = 0;
   const panelWidth = 0;
 
-  return <div className="panel-component">{props.children}</div>;
+  return <div className="panel-component">
+    <h2 className="component-title">{props.title}</h2>
+    {props.children}
+    </div>;
 }
 
 export default PanelComponent;
