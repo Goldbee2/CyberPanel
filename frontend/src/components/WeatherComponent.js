@@ -5,7 +5,7 @@ import Error from "./Error";
 
 function WeatherComponent() {
   const [response, query] = useState({});
-  const [weather, setWeather] = useState({});
+  const [weatherData, setWeather] = useState({});
   const [componentState, setComponentState] = useState("");
 
   /*
@@ -23,13 +23,11 @@ function WeatherComponent() {
 
     fetch("http://192.168.1.125:9000/weather")
       .then((res) => {
-        
-        console.log("res before parsing:", res);
         return res.json();
       })
       .then((parsed) => {
-        console.log(parsed.weather[0]);
-        setWeather(parsed.weather[0]);
+        setWeather(parsed);
+        console.log(parsed);
         setComponentState("success");
       })
       .catch((err) => {
@@ -40,23 +38,32 @@ function WeatherComponent() {
 
   if (componentState === "error") {
     return (
-      <PanelComponent>
+      <PanelComponent title="weather">
         <Error />
       </PanelComponent>
     );
   } else if (componentState === "success") {
-    let currentWeather = weather.main;
-    let weatherIcon = `http://openweathermap.org/img/wn/${weather.icon}@4x.png`;
+    let currentWeather = weatherData.weather[0];
+    let currentWeatherDescription = currentWeather.main;
+    let weatherIcon = `http://openweathermap.org/img/wn/${currentWeather.icon}@4x.png`;
+    let currentTemp =Math.round(weatherData.main.temp);
+
+
     return (
-      <PanelComponent>
-        <img id="weather-icon" src={weatherIcon}/>
-        <p>{currentWeather}</p>
+      <PanelComponent title="Weather">
+        <div id="weather-info">
+          <img id="weather-icon" src={weatherIcon} />
+          <div id="weather-info-details">
+            <h2 id="weather-info-degrees">{currentTemp}&#176;</h2>
+            <p>{currentWeatherDescription}</p>
+          </div>
+        </div>
       </PanelComponent>
     );
   }
 
   return (
-    <PanelComponent>
+    <PanelComponent title="Weather">>
       <p>Loading...</p>
     </PanelComponent>
   );
