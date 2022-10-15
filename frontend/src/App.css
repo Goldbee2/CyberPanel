@@ -1,55 +1,64 @@
-:root{
+:root {
   --component-font-size: 16px;
+  --text-color-title: rgba(86, 194, 145, 0.73);
+  --text-color-body: rgb(143, 206, 129);
   margin: 0;
+  padding: none;
 }
 
-body{
+body {
   background-color: rgb(221, 238, 226);
 }
 
-.error-message{
-  color:rgb(199, 47, 121);
+.error-message {
+  color: rgb(199, 47, 121);
 }
 
-.panel-component{
+.panel-component {
   background-color: rgb(232, 244, 239);
-  border-radius: 20px;
+  border-radius: 6px;
   padding: 1rem;
   width: fit-content;
   box-shadow: rgba(7, 38, 2, 0.124) 0px 2px 4px, rgba(1, 44, 9, 0.2) 0px 7px 13px -3px, rgba(54, 103, 66, 0.19) 0px -3px 0px inset;
   margin: 12px;
+  overflow: hidden;
 }
 
-.panel-component p{
+.panel-component p {
   margin: auto;
   width: 100%;
   text-align: center;
-  color:rgb(143, 206, 129);
+  color: var(--text-color-body);
   font-size: var(--component-font-size);
 }
 
 .component-title {
-  color:rgb(137, 220, 147);
+  color: var(--text-color-title);
   font-size: var(--component-font-size);
-  text-align: center;
-  margin: 0;
+  /* text-align: center; */
+  margin: -1rem;
+  padding: 0.4rem;
+  padding-left: 1rem;
+  text-align: left;
+  margin-bottom: 0;
   font-weight: bold;
+  background-color: hsl(165, 53%, 88%);
 }
 
-#weather-icon{
-  filter: drop-shadow(1px 2px 8px rgba(49, 28, 11, 0.85));
+#weather-icon {
+  filter: drop-shadow(1px 2px 8px rgba(47, 135, 69, 0.64));
   width: 6rem;
   padding: 0;
   margin: 0;
   /* margin:0; */
 }
 
-#weather-info{
-  display:flex;
+#weather-info {
+  display: flex;
   flex-direction: row;
 }
 
-#weather-info-details{
+#weather-info-details {
   display: flex;
   flex-direction: column;
   height: fit-content;
@@ -57,13 +66,33 @@ body{
 }
 
 
-#weather-info-details *{
+#weather-info-details * {
   text-align: left;
 }
 
-#weather-info-degrees{
+#weather-info-degrees {
   font-size: var(--component-font-size);
   padding: 0;
   margin: 0;
   color: rgb(137, 220, 147);
+}
+
+#clock-date, #clock-time {
+  color: rgb(137, 220, 147);
+}
+
+#goveeDevicesList {
+  list-style-type: none;
+  padding: 0;
+}
+
+.deviceListElement {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: var(--text-color-body);
+}
+
+.govee-devices-list-icon{
+  margin-right: 0.6rem;
 }
