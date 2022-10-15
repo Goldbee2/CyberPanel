@@ -26,7 +26,14 @@ function getKey(apiName) {
       try {
         return parsedKeys.OPENWEATHER_KEY;
       } catch (err) {
-        console.log(err);
+        console.log(err.message);
+        return "ERROR_KEY_NOT_FOUND";
+      }
+    case "govee":
+      try{
+        return parsedKeys.GOVEE_KEY;
+      }catch(err){
+        console.log(err.message);
         return "ERROR_KEY_NOT_FOUND";
       }
     default:
