@@ -2,6 +2,8 @@ var getWeather = require("../getWeather");
 var express = require("express");
 var router = express.Router();
 
+
+
 router.get("/", function (req, res, next) {
   let a = getWeather.fetchWeatherData();
   a.then((b) => {
@@ -10,5 +12,8 @@ router.get("/", function (req, res, next) {
   });
 
 });
+
+
+
 
 module.exports = router;
