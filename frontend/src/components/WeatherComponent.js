@@ -6,7 +6,7 @@ import Error from "./Error";
 function WeatherComponent() {
   const [response, query] = useState({});
   const [weatherData, setWeather] = useState({});
-  const [componentState, setComponentState] = useState("");
+  const [componentState, setComponentState] = useState("loading");
 
   /*
           TO DO
@@ -36,6 +36,8 @@ function WeatherComponent() {
       });
   }, []);
 
+
+
   if (componentState === "error") {
     return (
       <PanelComponent title="weather">
@@ -63,7 +65,7 @@ function WeatherComponent() {
   }
 
   return (
-    <PanelComponent title="Weather">>
+    <PanelComponent title="Weather">
       <p>Loading...</p>
     </PanelComponent>
   );
