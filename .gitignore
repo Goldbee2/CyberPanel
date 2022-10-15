@@ -106,4 +106,9 @@ dist
 
 # VSCode
 .vscode/
+
+
+
+# Custom
 backend/APIKeys.env
+*.bak
