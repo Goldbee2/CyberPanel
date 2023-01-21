@@ -48,21 +48,20 @@ function WeatherComponent() {
     let currentWeather = weatherData.weather[0];
     let currentWeatherDescription = currentWeather.main;
     let weatherIcon = `http://openweathermap.org/img/wn/${currentWeather.icon}@4x.png`;
-    let currentTemp =Math.round(weatherData.main.temp);
-
+    let currentTemp = Math.round(weatherData.main.temp);
 
     return (
-      <PanelComponent title="Weather">
-        <div id="weather-info">
-          <img id="weather-icon" src={weatherIcon} />
-          <div id="weather-info-details">
-            <h2 id="weather-info-degrees">{currentTemp}&#176;</h2>
-            <p>{currentWeatherDescription}</p>
-          </div>
+      <div id="weather-info">
+        <img id="weather-icon" src={weatherIcon} />
+        <div id="weather-info-details">
+          <h2 id="weather-info-degrees">{currentTemp}&#176;</h2>
+          <p id="weather-info-description">{currentWeatherDescription}</p>
         </div>
-      </PanelComponent>
+      </div>
     );
   }
+
+
 
   return (
     <PanelComponent title="Weather">
