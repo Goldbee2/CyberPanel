@@ -13,7 +13,14 @@ var lightsRouter = require("./routes/lights");
 const { getSystemErrorMap } = require("util");
 
 var app = express();
-app.use(cors());
+
+var corsOptions = {
+  origin: '*',
+  optionsSuccessStatus: 200,
+}
+
+app.use(cors(corsOptions));
+app.use(express.json());
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -21,7 +28,6 @@ app.set("view engine", "jade");
 
 // Setting globals
 // app.set("example", exampleModule.exampleData());
-
 
 app.use(logger("dev"));
 app.use(express.json());
