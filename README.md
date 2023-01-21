@@ -3,4 +3,13 @@ A futuristic dashboard and control panel app for my lair. Written in JavaScript 
 
 My first time using Express to write server-side code, so everything you see here is a learning experience and may not be representative of my best work. Fork at your own risk :P
 
+# TODO
+- [1]
+- [2]
+- [3]
+- [4]
+- [5]
+
+
 License: GNU GPL v3.0
+
