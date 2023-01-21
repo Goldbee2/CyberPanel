@@ -15,6 +15,7 @@ One issue I encountered was that while my backend was retrieving the information
 - CORS policies are strict by default, and some browsers enforce cross-origin resource requests and headers even more strictly
 
 To address this, I used the CORS middleware fore express and specified the Access-Control-Allow-Origin policy. 
+
 *Note: For now, my backend allows requests from all URLs, but if I ever want this to be distributable to others I would probably add a script/guide to enable only certain ips or ranges e.g. 192.168.\*.\**
 
 
