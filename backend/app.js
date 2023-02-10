@@ -10,9 +10,13 @@ var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var weatherRouter = require("./routes/weather");
 var lightsRouter = require("./routes/lights");
+var oauth2Router = require("./routes/oauth2");
 const { getSystemErrorMap } = require("util");
 
 var app = express();
+
+
+// CORS options
 
 var corsOptions = {
   origin: '*',
@@ -21,6 +25,9 @@ var corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(express.json());
+
+// Sessions
+
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -39,6 +46,9 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/weather", weatherRouter);
 app.use("/lights", lightsRouter);
+
+app.use("/oauth2", oauth2Router);
+
 app.use("/favicon.ico", express.static("public/images/favicon_server.ico"));
 
 // catch 404 and forward to error handler
