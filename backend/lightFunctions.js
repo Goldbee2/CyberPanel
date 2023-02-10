@@ -2,8 +2,7 @@ const { json } = require("express");
 var express = require("express");
 
 function getLights() {
-  // var goveeKey = require("./apiKeys").getKey('govee');
-  var goveeKey = "de4f1a25-148c-4437-81fc-fc13328edc83";
+  var goveeKey = require("./apiKeys").getKey('govee');
 
   return fetch("https://developer-api.govee.com/v1/devices", {
     headers: [["Govee-Api-Key", goveeKey]],
