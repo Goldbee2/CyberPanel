@@ -5,7 +5,7 @@ My first time using Express to write server-side code, so everything you see her
 
 # What I Learned
 
-Since this project has been a huge learning experience for me, I thought I'd share some of the things I learned below.
+Since this project has been a huge learning experience for me, I thought I'd share some of the things I learned below. Many of these may seem simple, even laughably so to the more experienced -- most are in hindsight even to me! But I believe in learning without ego, and the process may be interesting to some.
 
 ## Environment Variables
 
