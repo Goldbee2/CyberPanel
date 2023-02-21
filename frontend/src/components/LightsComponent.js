@@ -19,7 +19,7 @@ function LightsComponent() {
   useEffect(() => {
     setComponentState("loading");
 
-    fetch("http://192.168.1.125:9000/lights/getLights")
+    fetch("http://192.168.1.127:9000/lights/getLights")
       .then((res) => {
         return res.json();
       })
