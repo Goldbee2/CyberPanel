@@ -21,7 +21,7 @@ function WeatherPanelComponent() {
   useEffect(() => {
     setComponentState("loading");
 
-    fetch("http://192.168.1.125:9000/weather")
+    fetch("http://192.168.1.127:9000/weather")
       .then((res) => {
         return res.json();
       })
