@@ -12,6 +12,7 @@
     "dotenv": "^16.0.3",
     "express": "~4.16.1",
     "google-auth-library": "^8.6.0",
+    "googleapis": "^111.0.0",
     "http-errors": "~1.6.3",
     "jade": "^0.29.0",
     "morgan": "~1.9.1"
