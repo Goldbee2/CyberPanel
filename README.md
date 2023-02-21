@@ -27,6 +27,10 @@ To address this, I used the CORS middleware fore express and specified the Acces
 
 I hadn't had to use custom headers on fetch requests before, though this is common in 3rd-party API requests involving tokens. I had to learn how HTTP request headers worked and how to modify them. This was a one-line fix for my specific use case, but I got to learn a lot about how clients and servers talk to each other in the process.
 
+## OAuth2 Flow for Server-Side Authentication
+
+To implement my calendar component, I had to figure out how to use google's oauth2 services to properly authenticate the user. I had to read a ton of documentation and figure out the flow: Login prompt --> Authentication url --> Post-auth redirect --> Storing credentials in cookie --> Using auth token to retrieve info --> changing component view to display retrieved info. This was one of the most educational parts of the project so far, since I had to make sure the frontend and backend were talking to one another and google's services properly. I also had to learn react-router and how to use cookies.
+
 
 # TODO
 Check issues for a list of features I plan to implement.
