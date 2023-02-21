@@ -1,4 +1,5 @@
 import "./App.css";
+import React from "react";
 import PanelComponent from "./components/PanelComponent";
 import WeatherComponent from "./components/WeatherComponent";
 import { useEffect, useState } from "react";
@@ -6,16 +7,33 @@ import ClockComponent from "./components/ClockComponent";
 import LightsComponent from "./components/LightsComponent";
 import ClockWeatherComponent from "./components/ClockWeatherComponent";
 import WeatherPanelComponent from "./components/WeatherPanelComponent";
+import AuthRedirect from "./AuthRedirect";
 
-function App() {
+
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+
+export default function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/authRedirect" element={<AuthRedirect />} />
+      </Routes>
+    </Router>
+  );
+}
+
+function Main() {
   return (
     <div className="App">
-      <WeatherPanelComponent/>
-      <ClockComponent/>
-      <LightsComponent/>
-      <ClockWeatherComponent/>
+      <WeatherPanelComponent />
+      <ClockComponent />
+      <LightsComponent />
+      <ClockWeatherComponent />
     </div>
   );
 }
 
-export default App;
+function AuthRedirectView() {
+  return <div><AuthRedirect /></div>;
+}
