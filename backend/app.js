@@ -11,6 +11,8 @@ var usersRouter = require("./routes/users");
 var weatherRouter = require("./routes/weather");
 var lightsRouter = require("./routes/lights");
 var oauth2Router = require("./routes/oauth2");
+var calendarRouter = require("./routes/calendar");
+
 const { getSystemErrorMap } = require("util");
 
 var app = express();
@@ -46,6 +48,7 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/weather", weatherRouter);
 app.use("/lights", lightsRouter);
+app.use("/calendar", calendarRouter);
 
 app.use("/oauth2", oauth2Router);
 
