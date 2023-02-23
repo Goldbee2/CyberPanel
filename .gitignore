@@ -112,3 +112,5 @@ dist
 # Custom
 backend/APIKeys.env
 *.bak
+backend/certificate/server.cert
+backend/certificate/server.key
