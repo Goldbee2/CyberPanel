@@ -21,7 +21,7 @@ function WeatherPanelComponent() {
   useEffect(() => {
     setComponentState("loading");
 
-    fetch("http://192.168.1.127:9000/weather")
+    fetch("https://192.168.1.127:9000/weather")
       .then((res) => {
         return res.json();
       })
@@ -47,7 +47,7 @@ function WeatherPanelComponent() {
   } else if (componentState === "success") {
     let currentWeather = weatherData.weather[0];
     let currentWeatherDescription = currentWeather.main;
-    let weatherIcon = `http://openweathermap.org/img/wn/${currentWeather.icon}@4x.png`;
+    let weatherIcon = `https://openweathermap.org/img/wn/${currentWeather.icon}@4x.png`;
     let currentTemp =Math.round(weatherData.main.temp);
 
 
