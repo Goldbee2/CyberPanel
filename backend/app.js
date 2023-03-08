@@ -4,6 +4,8 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var cors = require("cors");
+var {google} = require('googleapis');
+
 
 // Routers
 var indexRouter = require("./routes/index");
@@ -29,7 +31,16 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 // Sessions
-
+var apiKeys = require('./apiKeys');
+var CLIENT_ID = apiKeys.getKey("oauth2ClientID");
+var CLIENT_SECRET = apiKeys.getKey("oauth2ClientSecret");
+var REDIRECT_URL = apiKeys.getKey("oauth2RedirectURL");
+const oauth2Client = new google.auth.OAuth2(
+  CLIENT_ID,
+  CLIENT_SECRET,
+  REDIRECT_URL
+);
+app.set("oauth2Client", oauth2Client);
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
