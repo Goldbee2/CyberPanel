@@ -1,18 +1,23 @@
 var express = require("express");
 var router = express.Router();
+var calendarFunctions = require("../calendarFunctions");
 
 router.get("/", function (req, res, next) {
-  const token = req.cookies.googleAuthToken;
-  if (token) {
-    let((retrievedCalEvents = calendarFunctions.getEvents()));
+  
+  const oauth2Client = req.app.get("oauth2Client");
+
+  if (oauth2Client.credentials.access_token) {
+    console.log("RETRIEVING EVENTS");
+    // This function is a clean code disaster--getEvents has side effects, does multiple things not listed under name
+    let retrievedCalEvents = calendarFunctions.getEvents(oauth2Client);
 
     retrievedCalEvents.then((calendarEventsResponse) => {
-      console.log(calendarEventsResponse);
+      console.log("RESPONSE:", calendarEventsResponse);
       res.send(calendarEventsResponse);
     });
   } else {
     res.status(401);
-    res.send("No token included with request");
+    res.send("No token exists in oauth2Client");
   }
   // let a = calendarFunctions.getEvents();
 
