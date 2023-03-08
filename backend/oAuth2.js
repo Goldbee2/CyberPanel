@@ -1,6 +1,6 @@
-const {google} = require('googleapis');
+const { google } = require("googleapis");
 
-function getRedirectURL() {
+function getRedirectURL(oauth2Client) {
   //<===============FLOW=============>
   //
   //  Based on https://developers.google.com/identity/protocols/oauth2/web-server
@@ -11,17 +11,6 @@ function getRedirectURL() {
   // 4. Send access token to API
   // 5. Refresh token if necessary
 
-  var CLIENT_ID = require("./apiKeys").getKey("oauth2ClientID");
-  var CLIENT_SECRET = require("./apiKeys").getKey("oauth2ClientSecret");
-  var REDIRECT_URL = require("./apiKeys").getKey("oauth2RedirectURL");
-
-  const oauth2Client = new google.auth.OAuth2(
-    CLIENT_ID,
-    CLIENT_SECRET,
-    REDIRECT_URL
-  );
-  //client ID, client secret, redirect url
-
   // scopes -- should be urls from googleapis.com/auth
   const scopes = ["https://www.googleapis.com/auth/calendar.events.readonly"];
 
@@ -30,13 +19,28 @@ function getRedirectURL() {
     scope: scopes,
     include_granted_scopes: true,
   });
-  console.log(authorizationURL);
 
   // note: currently invalid request -- https://www.oauth.com/oauth2-servers/server-side-apps/possible-errors/ has some info
 
-  return authorizationURL
+  return authorizationURL;
 
   // next: update calendar or oauth routes with redirects to auth url on authorization request, and content delivery on oauth2 callback
 }
 
-module.exports = {getRedirectURL};
+async function exchangeToken(oauth2Client, code) {
+  const tokenExchangeResponse = await oauth2Client
+    .getToken(code)
+    .catch((err) => {
+      console.log(err);
+      return false;
+    });
+    
+  if (tokenExchangeResponse) {
+    oauth2Client.setCredentials(tokenExchangeResponse.tokens);
+    return true;
+  }
+  console.log("Error: token exchange failed");
+  return false;
+}
+
+module.exports = { getRedirectURL, exchangeToken };
