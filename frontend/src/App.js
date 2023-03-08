@@ -1,12 +1,13 @@
 import "./App.css";
 import React from "react";
-import PanelComponent from "./components/PanelComponent";
-import WeatherComponent from "./components/WeatherComponent";
-import { useEffect, useState } from "react";
+// import PanelComponent from "./components/PanelComponent";
+// import WeatherComponent from "./components/WeatherComponent";
+// import { useEffect, useState } from "react";
 import ClockComponent from "./components/ClockComponent";
 import LightsComponent from "./components/LightsComponent";
 import ClockWeatherComponent from "./components/ClockWeatherComponent";
 import WeatherPanelComponent from "./components/WeatherPanelComponent";
+import CalendarComponent from "./components/CalendarComponent";
 import AuthRedirect from "./AuthRedirect";
 
 
@@ -28,6 +29,7 @@ function Main() {
     <div className="App">
       <WeatherPanelComponent />
       <ClockComponent />
+      <CalendarComponent />
       <LightsComponent />
       <ClockWeatherComponent />
     </div>
