@@ -8,7 +8,7 @@ function ClockComponent() {
   });
 
   return (
-    <PanelComponent title="Clock">
+    <div id="clock-component">
       <h2 id="clock-time">
         {date.toLocaleString("en-US", {
           hour: "numeric",
@@ -17,7 +17,7 @@ function ClockComponent() {
         })}
       </h2>
       <h3 id="clock-date"> {date.toLocaleDateString("en-US")}</h3>
-    </PanelComponent>
+    </div>
   );
 }
 
