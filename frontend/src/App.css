@@ -7,19 +7,35 @@
 }
 
 body {
-  background: url(./white_carbon.webp);
-  background-color: rgb(221, 238, 226);
+  background-color: rgb(227, 227, 227);
+  padding:1rem;
 }
+
+.App{
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+}
+
+#split-left{
+  width:50%;
+  padding: 1rem;
+}
+#split-right{
+  width: 50%;
+  padding: 2rem;
+}
+
 
 .error-message {
   color: rgb(199, 47, 121);
 }
 
 .panel-component {
-  background-color: rgb(232, 244, 239);
+  background-color: rgb(234, 234, 234);
   border-radius: 6px;
   padding: 1rem;
-  width: fit-content;
+  width: auto;
   box-shadow: rgba(7, 38, 2, 0.124) 0px 2px 4px, rgba(1, 44, 9, 0.2) 0px 7px 13px -3px, rgba(54, 103, 66, 0.19) 0px -3px 0px inset;
   margin: 12px;
   overflow: hidden;
@@ -78,7 +94,20 @@ body {
   color: rgb(137, 220, 147);
 }
 
-#clock-date, #clock-time {
+#clock-component{
+  margin: 1rem;
+  font-size: 48px;
+  margin: 2rem 0 8rem 1rem;
+  vertical-align: middle;
+}
+
+#clock-date{
+  margin: 0;
+  font-size: 0.8em;
+  color: rgb(137, 220, 147);
+}
+
+#clock-time{
   margin: 0;
   color: rgb(137, 220, 147);
 }
@@ -99,51 +128,16 @@ body {
   margin-right: 0.6rem;
 }
 
-#clock-weather-panel {
+
+#calendar li{
+  list-style: none;
+  padding-left: 0px;
   display: flex;
-  flex-direction: row;
-  padding: 4rem;
-  background: white;
-  width: fit-content;
-  right: 0;
-  position: fixed;
-  top: 2.5in;
-  border-radius: 32px 0px 0px 32px;
-  border: 1px solid rgb(154, 154, 154);
-  border-right: none;
-  background: #f5f5f5;
-}
-
-#clock-weather-panel #weather-info {
-  background: rgb(199, 199, 199);
-  border-radius: 32px 0px 0px 32px;
-  padding-right: 90px;
-  margin-right: -70px;
-  background: #eeeeee;
-  box-shadow: inset 3px 3px 10px #d3d3d3,
-    inset -4px -4px 8px #fdfdfd;
-  border: 1px solid rgb(229, 229, 229);
-}
-
-#clock-weather-panel #weather-info-details{
-  align-items: center;
-  color: black;
-  margin: auto;
-}
-
-#clock-weather-panel #weather-info-degrees, #weather-info-description{
+  align-items: space-between;
   margin: 0;
-  color: #1d1d1d5d;
+  margin-left: 0;
 }
 
-#clock-weather-timeDate {
-  display: flex;
-  flex-direction: column;
-  height: fit-content;
-  margin: auto;
-  margin-right: 40px;
-}
-
-#clock-weather-timeDate #clock-time {
-  font-size: 36px;
+#calendar *{
+  text-align: left;
 }
