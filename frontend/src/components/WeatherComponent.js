@@ -35,14 +35,8 @@ function WeatherComponent() {
       });
   }, []);
 
-
-
   if (componentState === "error") {
-    return (
-      <PanelComponent title="weather">
-        <Error />
-      </PanelComponent>
-    );
+    return <Error />;
   } else if (componentState === "success") {
     let currentWeather = weatherData.weather[0];
     let currentWeatherDescription = currentWeather.main;
@@ -60,13 +54,7 @@ function WeatherComponent() {
     );
   }
 
-
-
-  return (
-    <PanelComponent title="Weather">
-      <p>Loading...</p>
-    </PanelComponent>
-  );
+  return <p>Loading...</p>;
 }
 
 export default WeatherComponent;
