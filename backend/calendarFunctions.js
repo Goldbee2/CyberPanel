@@ -19,7 +19,7 @@ async function getEvents(oauth2Client) {
   const res = await calendar.events.list({
     auth: oauth2Client,
     calendarId: "primary",
-    maxResults: 10,
+    maxResults: 20,
     singleEvents: true,
     orderBy: "startTime",
     timeMin: now.toISOString(),
@@ -28,4 +28,7 @@ async function getEvents(oauth2Client) {
   return res.data;
 }
 
-module.exports = { getEvents };
+
+
+
+module.exports = { getEvents};
