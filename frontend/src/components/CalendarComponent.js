@@ -14,23 +14,31 @@ export default function CalendarComponent() {
   const [componentState, setComponentState] = useState("loading");
   const [authURL, setAuthURL] = useState("");
 
+  function createChildHTML(object) {
+    var date = "";
 
-
-
-  function createChildHTML(object){
-    var date=""
-    
-    if(object.start.dateTime){
+    if (object.start.dateTime) {
       date = object.start.dateTime;
-    }else if(object.start.date){
-      date=object.start.date;
+    } else if (object.start.date) {
+      date = object.start.date;
     }
-    // let date = object.start.toDateString();
+    
+    var dateTime = new Date(date);
+
+    date = dateTime.toLocaleDateString("en-US", {
+      weekday: "short",
+      month: "short",
+      weekday: "long",
+      day: "numeric",
+    });
     console.log(object.summary);
-    return(<li><p class="calendar-summary">{object.summary}</p><p class="calendar-date"> {date}</p></li>);
+    return (
+      <li>
+        <p class="calendar-summary">{object.summary}</p>
+        <p class="calendar-date"> {date}</p>
+      </li>
+    );
   }
-
-
 
   useEffect(() => {
     const cookies = new Cookies();
@@ -41,7 +49,7 @@ export default function CalendarComponent() {
       setComponentState("loading");
       fetch("https://192.168.1.127:9000/calendar")
         .then((res) => {
-          if(res.status!=200){
+          if (res.status != 200) {
             cookies.remove("googleAuthToken");
             setComponentState("authPrompt");
           }
