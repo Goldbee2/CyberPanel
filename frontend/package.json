@@ -15,7 +15,7 @@
     "webpack": "^4.28.3"
   },
   "scripts": {
-    "start": "set HTTPS=true&&react-scripts start",
+    "start": "HTTPS=true SSL_CRT_FILE=./certificate/certificate.pem SSL_KEY_FILE=./certificate/key.pem react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
