@@ -14,6 +14,24 @@ export default function CalendarComponent() {
   const [componentState, setComponentState] = useState("loading");
   const [authURL, setAuthURL] = useState("");
 
+
+
+
+  function createChildHTML(object){
+    var date=""
+    
+    if(object.start.dateTime){
+      date = object.start.dateTime;
+    }else if(object.start.date){
+      date=object.start.date;
+    }
+    // let date = object.start.toDateString();
+    console.log(object.summary);
+    return(<li><p class="calendar-summary">{object.summary}</p><p class="calendar-date"> {date}</p></li>);
+  }
+
+
+
   useEffect(() => {
     const cookies = new Cookies();
 
@@ -23,8 +41,13 @@ export default function CalendarComponent() {
       setComponentState("loading");
       fetch("https://192.168.1.127:9000/calendar")
         .then((res) => {
+          if(res.status!=200){
+            cookies.remove("googleAuthToken");
+            setComponentState("authPrompt");
+          }
           return res.json();
-        }).then((resJson)=>{
+        })
+        .then((resJson) => {
           setCalendarData(resJson);
           setComponentState("displayEvents");
         })
@@ -69,21 +92,19 @@ export default function CalendarComponent() {
         </PanelComponent>
       );
     case "displayEvents":
-      console.log("eventData:", calendarData);
+      const listItems = calendarData.items.map((item) => createChildHTML(item));
       return (
-        <PanelComponent>
-          {"Events go here"}
+        <PanelComponent title="Calendar">
           <div id="calendar">
-            {/* list of events */}
-            
+            <ul>{listItems}</ul>
           </div>
         </PanelComponent>
       );
+    default:
+      return (
+        <PanelComponent title="Calendar">
+          <p>Loading...</p>
+        </PanelComponent>
+      );
   }
-
-  return (
-    <PanelComponent title="Calendar">
-      <p>Loading...</p>
-    </PanelComponent>
-  );
 }
