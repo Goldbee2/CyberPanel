@@ -31,11 +31,10 @@ export default function CalendarComponent() {
       weekday: "long",
       day: "numeric",
     });
-    console.log(object.summary);
     return (
       <li>
-        <p class="calendar-summary">{object.summary}</p>
-        <p class="calendar-date"> {date}</p>
+        <p className="calendar-summary">{object.summary}</p>
+        <p className="calendar-date"> {date}</p>
       </li>
     );
   }
@@ -69,7 +68,6 @@ export default function CalendarComponent() {
           return res.text();
         })
         .then((parsed) => {
-          console.log(parsed);
           setAuthURL(parsed);
           setComponentState("authPrompt");
         })
