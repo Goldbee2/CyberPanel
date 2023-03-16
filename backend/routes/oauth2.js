@@ -17,7 +17,6 @@ router.get("/postAuth", function (req, res, next) {
   tokenExchangeStatus.then((status) => {
     res.status(status ? 200 : 400);
     let token=oauth2Client.credentials.access_token;
-    console.log(token);
     let url = "https://192.168.1.127:3000/authRedirect?googleAuthToken="+token; 
     res.redirect(url);
   });
