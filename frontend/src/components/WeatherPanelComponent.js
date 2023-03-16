@@ -27,7 +27,6 @@ function WeatherPanelComponent() {
       })
       .then((parsed) => {
         setWeather(parsed);
-        console.log(parsed);
         setComponentState("success");
       })
       .catch((err) => {
