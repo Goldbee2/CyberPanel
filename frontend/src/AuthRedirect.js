@@ -11,7 +11,6 @@ export default function AuthRedirect() {
     secure: true,
     sameSite: "Strict",
   });
-  console.log(queryParameters);
 
   return (
     <>
