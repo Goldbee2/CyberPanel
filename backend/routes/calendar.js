@@ -12,7 +12,6 @@ router.get("/", function (req, res, next) {
     let retrievedCalEvents = calendarFunctions.getEvents(oauth2Client);
 
     retrievedCalEvents.then((calendarEventsResponse) => {
-      console.log("RESPONSE:", calendarEventsResponse);
       res.send(calendarEventsResponse);
     });
   } else {
