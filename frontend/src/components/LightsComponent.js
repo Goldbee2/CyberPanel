@@ -3,7 +3,6 @@ import PanelComponent from "./PanelComponent";
 import Error from "./Error";
 
 function generateDeviceDOMElement(device) {
-  console.log("DEVICE", device);
   return (
     <li className="deviceListElement">
       <span className="material-symbols-outlined govee-devices-list-icon">lightbulb</span>
@@ -41,7 +40,6 @@ function LightsComponent() {
     );
   } else if (componentState === "success") {
     let lights = lightData.devices;
-    console.log("Lights:", lights);
     return (
       <PanelComponent title="Govee Lights">
         <ul id="goveeDevicesList">{lights.map(generateDeviceDOMElement)}</ul>
