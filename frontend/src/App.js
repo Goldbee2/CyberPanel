@@ -8,9 +8,11 @@ import LightsComponent from "./components/LightsComponent";
 import ClockWeatherComponent from "./components/ClockWeatherComponent";
 import WeatherPanelComponent from "./components/WeatherPanelComponent";
 import CalendarComponent from "./components/CalendarComponent";
+import ToDoList from "./components/ToDoListComponent";
 import AuthRedirect from "./AuthRedirect";
 
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import PanelComponent from "./components/PanelComponent";
 
 export default function App() {
   return (
@@ -28,11 +30,14 @@ function Main() {
     <div className="App">
       <div id="split-left">
         <ClockComponent />
-        <CalendarComponent />
+        <PanelComponent title="To Do">
+          <ToDoList />
+        </PanelComponent>
       </div>
       <div id="split-right">
         <WeatherPanelComponent />
         <LightsComponent />
+        <CalendarComponent />
       </div>
     </div>
   );
