@@ -1,30 +1,121 @@
-import {React, useState} from "react";
+import { React, useState, useEffect } from "react";
 import Cookies from "universal-cookie";
 
-export default function ToDoList(){
-    const cookies = new Cookies();
-    const getListFromCookie = () => {
-        var list = cookies.get("ToDoList");
-        return list;
+export default function ToDoList() {
+
+  const [toDoList, setToDoList] = useState(getListFromCookie());
+  const [currID, setID] = useState(
+    toDoList.length > 0 ? toDoList[toDoList.length - 1].id + 1 : 0
+  );
+  const [summary, setSummary] = useState("");
+
+  useEffect(() => {
+    saveListToCookie(toDoList);
+  });
+
+  const toDoListDOMElement = toDoList.map((task) => (
+    <li key={task.id}>
+      <input
+        type="checkbox"
+        defaultChecked={task.completed}
+        onChange={() => changeStatus(task.id)}
+      />
+      <p>{task.summary}</p>
+      <button onClick={() => removeEntry(task.id)}>Delete</button>
+    </li>
+  ));
+
+  //  Name:         getListFromCookie
+  // Returns:
+  //  Description:
+  function getListFromCookie() {
+    var cookies = new Cookies();
+    if (typeof cookies.get("ToDoList") === "undefined") {
+      return [];
+    } else {
+      var list = cookies.get("ToDoList");
+      return list;
     }
+  }
 
-    const [toDoList, setToDoList] = useState(getListFromCookie);
+  // Name:          saveListToCookie
+  // Parameters:    list -- an Array object.
+  // Notes:         Should only be called with toDoList as list
+  function saveListToCookie(list) {
+    var cookies = new Cookies();
+    console.log("Saving To Do List to cookies...");
+    cookies.set("ToDoList", list, { sameSite: true });
+  }
 
+  // Name:          changeStatus
+  // Parameters:    id -- an integer. the id of
+  function changeStatus(id) {
+    var list = toDoList;
+    var thisElement = list.filter((entry) => entry.id == id)[0];
+    thisElement.completed = !thisElement.completed;
+    setToDoList(list);
+    saveListToCookie(toDoList);
+  }
 
-    function addEntry(summary){
-        const thisEntry = {
-            id: "",
-            summary: summary,
-            completed: false
-        }
+  // Name:          addEntry
+  // Parameters:    summary -- String. A summary of the new toDoList entry
 
-        setToDoList([...toDoList, thisEntry]);
+  function addEntry(summary) {
+    const thisEntry = {
+      id: currID,
+      summary: summary,
+      completed: false,
+    };
+    setToDoList([...toDoList, thisEntry]);
+    setID(currID + 1);
+    setSummary("");
+    saveListToCookie(toDoList);
+  }
+
+  // Name:          removeEntry
+  // Parameters:    targetID -- the ID of the toDoList element to be deleted
+  // Notes:         No error thrown if targetID is not found, the list will not change.
+
+  function removeEntry(targetID) {
+    const initialLength = toDoList.length;
+    const filteredList = toDoList.filter((item) => item.id !== targetID);
+    if (initialLength === filteredList.length) {
+      console.log(
+        "ToDoList: removeEntry() was called with invalid id " + targetID
+      );
     }
+    setToDoList(filteredList);
+    saveListToCookie(toDoList);
+  }
 
-    function removeEntry(id){}
+  // Name:          handleSubmit
+  // Parameters:    event -- an onSubmit event from the new task form
+  // Description:   adds a new entry with the text currently in the input area as the summary.
 
+  function handleSubmit(event) {
+    event.preventDefault();
 
+    addEntry(summary);
+  }
 
-    return(<div id="to-do-list">{toDoList}</div>);
+  // Name:          handleSummaryChange
+  // Parameters:    event -- an onChange event from the new task text box
+  function handleSummaryChange(event) {
+    event.preventDefault();
+    setSummary(event.target.value);
+  }
 
+  return (
+    <div id="to-do-list">
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={summary}
+          onChange={handleSummaryChange}
+          placeholder="New task..."
+        />
+      </form>
+      <ul> {toDoListDOMElement}</ul>
+    </div>
+  );
 }
