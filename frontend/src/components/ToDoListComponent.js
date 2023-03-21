@@ -1,3 +1,6 @@
+// Checklist vector by Qaisir Mehmood via vecteezy
+
+
 import { React, useState, useEffect } from "react";
 import Cookies from "universal-cookie";
 
@@ -12,7 +15,7 @@ export default function ToDoList() {
     saveListToCookie(toDoList);
   });
 
-  const toDoListDOMElement = toDoList.map((task) => (
+  const toDoListDOMElement = <ul>{toDoList.map((task) => (
     <li className="todo-entry" key={task.id}>
       <input
         className="todo-checkbox"
@@ -25,7 +28,10 @@ export default function ToDoList() {
         Delete
       </button>
     </li>
-  ));
+  ))}</ul>;
+
+  const toDoListPlaceholderElement = <div id="to-do-list-placeholder"><img id="to-do-list-placeholder-image" src={process.env.PUBLIC_URL + "/33_Tasks.svg"}/><p id="to-do-list-placeholder-text">Tasks will appear here.</p></div>
+
 
   //  Name:         getListFromCookie
   // Returns:
@@ -46,7 +52,7 @@ export default function ToDoList() {
   function saveListToCookie(list) {
     var cookies = new Cookies();
     console.log("Saving To Do List to cookies...");
-    cookies.set("ToDoList", list, { sameSite: true });
+    cookies.set("ToDoList", list, { sameSite: true, expires: new Date("1/1/3000")});
   }
 
   // Name:          changeStatus
@@ -107,8 +113,11 @@ export default function ToDoList() {
     setSummary(event.target.value);
   }
 
+
+
+
   return (
-    <div id="to-do-list">
+    <>
       <form onSubmit={handleSubmit}>
         <input
           id="to-do-list-input"
@@ -118,7 +127,7 @@ export default function ToDoList() {
           placeholder="New task..."
         />
       </form>
-      <ul> {toDoListDOMElement}</ul>
-    </div>
+      {toDoList.length===0 ? toDoListPlaceholderElement : toDoListDOMElement}
+    </>
   );
 }
