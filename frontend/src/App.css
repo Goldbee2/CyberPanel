@@ -1,4 +1,5 @@
 :root {
+
   --component-font-size: 16px;
   --text-color-title: rgb(53, 53, 53);
   --text-color-body: rgb(113, 118, 112);
@@ -7,6 +8,7 @@
   padding: none;
 
   /* ==== CALENDAR COLORS ==== */
+
   --Lavender: #7986cb;
   --Sage: #33b679;
   --Grape: #8e24aa;
@@ -23,14 +25,9 @@
 
 body {
   background-color: rgb(227, 227, 227);
-  /* padding: 1rem; */
 }
 
-.App {
-  
-}
-
-main{
+main {
   display: flex;
   flex-direction: row;
   width: 100vw;
@@ -38,12 +35,14 @@ main{
 
 #split-left {
   width: 50%;
-  padding: 1rem;
+  padding: 2rem;
+  padding-right: 1rem;
 }
 
 #split-right {
   width: 50%;
   padding: 2rem;
+  padding-left: 1rem;
 }
 
 
@@ -52,9 +51,18 @@ main{
 }
 
 
+#clock-weather-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-right: 1rem;
+}
+
+
+
 /* ==== TOP BAR ==== */
 
-#top-bar{
+#top-bar {
   width: 100vw;
   background-color: rgb(241, 244, 246);
   height: 30px;
@@ -64,9 +72,11 @@ main{
   box-shadow: 0px 0px 5px -1px rgba(0, 0, 0, 0.3);
 }
 
+
+
 /* ==== SERVER STATUS ==== */
 
-#server-status{
+#server-status {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -77,18 +87,18 @@ main{
   width: 7rem;
 }
 
-#server-status-label{
+#server-status-label {
   padding: 0;
   margin: 0;
   color: var(--text-color-body);
 }
 
-#server-status-indicator{
+#server-status-indicator {
   border-radius: 16px;
   width: 12px;
   height: 12px;
   content: "";
-  display:flex;
+  display: flex;
   flex-direction: row;
 }
 
@@ -170,7 +180,7 @@ main{
   color: var(--text-color-title);
 }
 
-#weather-info-description{
+#weather-info-description {
   color: var(--text-color-body);
 }
 
@@ -198,13 +208,18 @@ main{
 }
 
 
+
+
 /* ====TO DO==== */
 
-#to-do-list ul{
+#to-do-list {
+  height: 41rem;
+}
+#to-do-list ul {
   padding: 0;
 }
 
-#to-do-list-input{
+#to-do-list-input {
   width: 97.4%;
   margin: 0;
   background-color: rgb(255, 255, 255);
@@ -213,7 +228,7 @@ main{
   padding: 4px 6px;
 }
 
-.todo-entry{
+.todo-entry {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -224,21 +239,45 @@ main{
   border-radius: 0.4rem;
   margin: 10px 0;
 }
-.todo-summary{
+
+.todo-summary {
   flex-grow: 1;
   padding: 0 1rem;
 }
-.todo-checkbox{
+
+.todo-checkbox {
   left: 0;
   width: fit-content;
 }
-.todo-delete{
-  left:0;
+
+.todo-delete {
+  left: 0;
   height: 30px;
   width: 90px;
-
-  /* padding: 2px 6px; */
 }
+
+#to-do-list-placeholder{
+  height: 100%;
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  vertical-align: middle;
+  padding-top: 6rem;
+}
+
+#to-do-list-placeholder-image {
+  width: 6rem;
+  opacity: 0.1;
+}
+
+#to-do-list-placeholder-text{
+  opacity: 0.6
+}
+
+
+
+
 /* ======GOVEE DEVICES====== */
 
 #goveeDevicesList {
@@ -260,17 +299,23 @@ main{
 
 
 
-
 /* =====CALENDAR===== */
 
-#calendar{
+#calendar {
+  padding: 1rem;
+}
+
+#calendar ul {
   padding: 0;
 }
 
-#calendar ul{
-  padding: 0;
+#login-button {
+  background-color: dodgerblue;
+  padding: 4px 6px;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
 }
-
 
 .calendar-event {
   padding: 0.1rem 1rem;
@@ -284,11 +329,11 @@ main{
   color: rgb(81, 84, 83);
 }
 
-.calendar-summary{
+.calendar-summary {
   text-align: left;
 }
 
-.calendar-date{
+.calendar-date {
   text-align: left;
-  max-width: 8rem;
+  width: 10rem;
 }
