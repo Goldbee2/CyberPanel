@@ -13,6 +13,8 @@ import AuthRedirect from "./AuthRedirect";
 
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import PanelComponent from "./components/PanelComponent";
+import WeatherComponent from "./components/WeatherComponent";
+import ServerStatusComponent from "./components/ServerStatusComponent";
 
 export default function App() {
   return (
@@ -28,17 +30,22 @@ export default function App() {
 function Main() {
   return (
     <div className="App">
-      <div id="split-left">
-        <ClockComponent />
-        <PanelComponent title="To Do">
-          <ToDoList />
-        </PanelComponent>
+      <div id="top-bar">
+        <ServerStatusComponent />
       </div>
-      <div id="split-right">
-        <WeatherPanelComponent />
-        <LightsComponent />
-        <CalendarComponent />
-      </div>
+      <main>
+        <div id="split-left">
+          <ClockComponent />
+          <WeatherComponent />
+          <PanelComponent title="To Do">
+            <ToDoList />
+          </PanelComponent>
+        </div>
+        <div id="split-right">
+          <LightsComponent />
+          <CalendarComponent />
+        </div>
+      </main>
     </div>
   );
 }
