@@ -5,7 +5,8 @@ function PanelComponent(props) {
   const panelHeight = 0;
   const panelWidth = 0;
 
-  return <div className="panel-component">
+  return <div id={props.id}  className="panel-component">
+    {/* <p className = "corner-symbol">&#8945;</p> */}
     <h2 className="component-title">{props.title}</h2>
     {props.children}
     </div>;
