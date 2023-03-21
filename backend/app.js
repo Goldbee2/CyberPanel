@@ -14,6 +14,7 @@ var weatherRouter = require("./routes/weather");
 var lightsRouter = require("./routes/lights");
 var oauth2Router = require("./routes/oauth2");
 var calendarRouter = require("./routes/calendar");
+var serverStatusRouter = require("./routes/status");
 
 const { getSystemErrorMap } = require("util");
 
@@ -62,6 +63,9 @@ app.use("/lights", lightsRouter);
 app.use("/calendar", calendarRouter);
 
 app.use("/oauth2", oauth2Router);
+
+app.use("/status", serverStatusRouter);
+
 
 app.use("/favicon.ico", express.static("public/images/favicon_server.ico"));
 
