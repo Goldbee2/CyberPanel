@@ -2,7 +2,6 @@ import { React, useState, useEffect } from "react";
 import Cookies from "universal-cookie";
 
 export default function ToDoList() {
-
   const [toDoList, setToDoList] = useState(getListFromCookie());
   const [currID, setID] = useState(
     toDoList.length > 0 ? toDoList[toDoList.length - 1].id + 1 : 0
@@ -14,14 +13,17 @@ export default function ToDoList() {
   });
 
   const toDoListDOMElement = toDoList.map((task) => (
-    <li key={task.id}>
+    <li className="todo-entry" key={task.id}>
       <input
+        className="todo-checkbox"
         type="checkbox"
         defaultChecked={task.completed}
         onChange={() => changeStatus(task.id)}
       />
-      <p>{task.summary}</p>
-      <button onClick={() => removeEntry(task.id)}>Delete</button>
+      <p className="todo-summary">{task.summary}</p>
+      <button className="todo-delete" onClick={() => removeEntry(task.id)}>
+        Delete
+      </button>
     </li>
   ));
 
@@ -109,6 +111,7 @@ export default function ToDoList() {
     <div id="to-do-list">
       <form onSubmit={handleSubmit}>
         <input
+          id="to-do-list-input"
           type="text"
           value={summary}
           onChange={handleSummaryChange}
