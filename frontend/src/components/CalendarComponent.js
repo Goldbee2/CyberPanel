@@ -14,7 +14,22 @@ export default function CalendarComponent() {
   const [componentState, setComponentState] = useState("loading");
   const [authURL, setAuthURL] = useState("");
 
+  const googleCalendarColors = {
+    "1": "Lavender",
+    "2": "Sage",
+    "3": "Grape",
+    "4": "Flamingo",
+    "5": "Banana",
+    "6": "Tangerine",
+    "7": "Peacock",
+    "8": "Graphite",
+    "9": "Blueberry",
+    "10": "Basil",
+    "11": "Tomato",
+  };
+
   function createChildHTML(object) {
+    console.log(googleCalendarColors[object.colorId]);
     var date = "";
 
     if (object.start.dateTime) {
@@ -22,7 +37,7 @@ export default function CalendarComponent() {
     } else if (object.start.date) {
       date = object.start.date;
     }
-    
+
     var dateTime = new Date(date);
 
     date = dateTime.toLocaleDateString("en-US", {
@@ -32,7 +47,7 @@ export default function CalendarComponent() {
       day: "numeric",
     });
     return (
-      <li>
+      <li className="calendar-event" style={{borderColor: "var(--" + googleCalendarColors[object.colorId] + ")"}}>
         <p className="calendar-summary">{object.summary}</p>
         <p className="calendar-date"> {date}</p>
       </li>
