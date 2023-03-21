@@ -1,27 +1,47 @@
 :root {
   --component-font-size: 16px;
-  --text-color-title: rgba(86, 194, 145, 0.73);
-  --text-color-body: rgb(143, 206, 129);
+  --text-color-title: rgb(53, 53, 53);
+  --text-color-body: rgb(113, 118, 112);
+  --grey-3: #e1e1de;
   margin: 0;
   padding: none;
+
+  /* ==== CALENDAR COLORS ==== */
+  --Lavender: #7986cb;
+  --Sage: #33b679;
+  --Grape: #8e24aa;
+  --Flamingo: #e67c73;
+  --Banana: #f6c026;
+  --Tangerine: #f5511d;
+  --Peacock: #039be5;
+  --Graphite: #616161;
+  --Blueberry: #3f51b5;
+  --Basil: #0b8043;
+  --Tomato: #d60000;
+
 }
 
 body {
   background-color: rgb(227, 227, 227);
-  padding:1rem;
+  /* padding: 1rem; */
 }
 
-.App{
+.App {
+  
+}
+
+main{
   display: flex;
   flex-direction: row;
   width: 100vw;
 }
 
-#split-left{
-  width:50%;
+#split-left {
+  width: 50%;
   padding: 1rem;
 }
-#split-right{
+
+#split-right {
   width: 50%;
   padding: 2rem;
 }
@@ -31,6 +51,53 @@ body {
   color: rgb(199, 47, 121);
 }
 
+
+/* ==== TOP BAR ==== */
+
+#top-bar{
+  width: 100vw;
+  background-color: rgb(241, 244, 246);
+  height: 30px;
+  margin: 0;
+  padding: 0.2rem 1.6rem;
+  align-items: center;
+  box-shadow: 0px 0px 5px -1px rgba(0, 0, 0, 0.3);
+}
+
+/* ==== SERVER STATUS ==== */
+
+#server-status{
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 7rem;
+}
+
+#server-status-label{
+  padding: 0;
+  margin: 0;
+  color: var(--text-color-body);
+}
+
+#server-status-indicator{
+  border-radius: 16px;
+  width: 12px;
+  height: 12px;
+  content: "";
+  display:flex;
+  flex-direction: row;
+}
+
+
+
+
+
+/* ===== GENERIC COMPONENT ==== */
+
 .panel-component {
   background-color: rgb(234, 234, 234);
   border-radius: 6px;
@@ -39,14 +106,9 @@ body {
   box-shadow: rgba(7, 38, 2, 0.124) 0px 2px 4px, rgba(1, 44, 9, 0.2) 0px 7px 13px -3px, rgba(54, 103, 66, 0.19) 0px -3px 0px inset;
   margin: 12px;
   overflow: hidden;
-}
-
-.panel-component p {
-  margin: auto;
-  width: 100%;
-  text-align: center;
   color: var(--text-color-body);
   font-size: var(--component-font-size);
+  position: relative;
 }
 
 .component-title {
@@ -57,14 +119,27 @@ body {
   padding: 0.4rem;
   padding-left: 1rem;
   text-align: left;
-  margin-bottom: 0;
+  margin-bottom: 1rem;
   font-weight: bold;
-  background-color: hsl(165, 53%, 88%);
+  background-color: hsl(0, 0%, 96%);
 }
+
+/* .corner-symbol{
+  color: black;
+  position: absolute;
+  top: -16px;
+  right: 4px;
+  width: fit-content;
+  font-weight: 800;
+} */
+
+
+
+/* ===== WEATHER ===== */
 
 #weather-icon {
   filter: drop-shadow(0px 0px 4px rgba(70, 135, 80, 0.2));
-  width: 6rem;
+  width: 9rem;
   padding: 0;
   margin: 0;
   /* margin:0; */
@@ -80,37 +155,91 @@ body {
   flex-direction: column;
   height: fit-content;
   align-self: center;
+  font-size: 20px;
 }
 
 
 #weather-info-details * {
   text-align: left;
+  margin: 0;
 }
 
 #weather-info-degrees {
-  font-size: var(--component-font-size);
   padding: 0;
   margin: 0;
-  color: rgb(137, 220, 147);
+  color: var(--text-color-title);
 }
 
-#clock-component{
+#weather-info-description{
+  color: var(--text-color-body);
+}
+
+
+
+
+/* ===== CLOCK ====== */
+
+#clock-component {
   margin: 1rem;
   font-size: 48px;
-  margin: 2rem 0 8rem 1rem;
+  margin: 0rem 0 1rem 1rem;
   vertical-align: middle;
 }
 
-#clock-date{
+#clock-date {
   margin: 0;
   font-size: 0.8em;
-  color: rgb(137, 220, 147);
+  color: var(--text-color-title);
 }
 
-#clock-time{
+#clock-time {
   margin: 0;
-  color: rgb(137, 220, 147);
+  color: var(--text-color-title);
 }
+
+
+/* ====TO DO==== */
+
+#to-do-list ul{
+  padding: 0;
+}
+
+#to-do-list-input{
+  width: 97.4%;
+  margin: 0;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid grey;
+  border-radius: 0.2rem;
+  padding: 4px 6px;
+}
+
+.todo-entry{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: inherit;
+  align-items: center;
+  background-color: var(--grey-3);
+  padding: 0 8px;
+  border-radius: 0.4rem;
+  margin: 10px 0;
+}
+.todo-summary{
+  flex-grow: 1;
+  padding: 0 1rem;
+}
+.todo-checkbox{
+  left: 0;
+  width: fit-content;
+}
+.todo-delete{
+  left:0;
+  height: 30px;
+  width: 90px;
+
+  /* padding: 2px 6px; */
+}
+/* ======GOVEE DEVICES====== */
 
 #goveeDevicesList {
   list-style-type: none;
@@ -129,15 +258,37 @@ body {
 }
 
 
-#calendar li{
-  list-style: none;
-  padding-left: 0px;
-  display: flex;
-  align-items: space-between;
-  margin: 0;
-  margin-left: 0;
+
+
+
+/* =====CALENDAR===== */
+
+#calendar{
+  padding: 0;
 }
 
-#calendar *{
+#calendar ul{
+  padding: 0;
+}
+
+
+.calendar-event {
+  padding: 0.1rem 1rem;
+  margin: 0.6rem 0rem;
+  border-radius: 8px;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--grey-3);
+  border-left: 8px solid dodgerblue;
+  color: rgb(81, 84, 83);
+}
+
+.calendar-summary{
   text-align: left;
+}
+
+.calendar-date{
+  text-align: left;
+  max-width: 8rem;
 }
