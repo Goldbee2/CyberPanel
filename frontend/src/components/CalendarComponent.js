@@ -43,8 +43,9 @@ export default function CalendarComponent() {
     date = dateTime.toLocaleDateString("en-US", {
       weekday: "short",
       month: "short",
-      weekday: "long",
       day: "numeric",
+      hour: "numeric",
+      minute: "numeric"
     });
     return (
       <li className="calendar-event" style={{borderColor: "var(--" + googleCalendarColors[object.colorId] + ")"}}>
@@ -96,34 +97,32 @@ export default function CalendarComponent() {
   switch (componentState) {
     case "loading":
       return (
-        <PanelComponent title="Calendar">
+        <PanelComponent id="calendar" title="Calendar">
           <p>Loading...</p>
         </PanelComponent>
       );
     case "error":
       return (
-        <PanelComponent title="Calendar">
+        <PanelComponent id="calendar" title="Calendar">
           <Error />
         </PanelComponent>
       );
     case "authPrompt":
       return (
-        <PanelComponent title="calendar">
+        <PanelComponent id="calendar" title="Calendar">
           <AuthPrompt url={authURL} />
         </PanelComponent>
       );
     case "displayEvents":
       const listItems = calendarData.items.map((item) => createChildHTML(item));
       return (
-        <PanelComponent title="Calendar">
-          <div id="calendar">
+        <PanelComponent id="calendar" title="Calendar">
             <ul>{listItems}</ul>
-          </div>
         </PanelComponent>
       );
     default:
       return (
-        <PanelComponent title="Calendar">
+        <PanelComponent id="calendar" title="Calendar">
           <p>Loading...</p>
         </PanelComponent>
       );
