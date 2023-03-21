@@ -35,9 +35,11 @@ function Main() {
       </div>
       <main>
         <div id="split-left">
-          <ClockComponent />
-          <WeatherComponent />
-          <PanelComponent title="To Do">
+          <div id="clock-weather-container">
+            <ClockComponent />
+            <WeatherComponent />
+          </div>
+          <PanelComponent id="to-do-list" title="To Do">
             <ToDoList />
           </PanelComponent>
         </div>
