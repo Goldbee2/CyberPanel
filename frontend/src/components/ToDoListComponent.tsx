@@ -46,7 +46,7 @@ export default function ToDoList() {
     );
 
     const toDoListPlaceholderElement = (
-        <div className="flex h-full flex-col items-center justify-center pt-24 text-center align-middle">
+        <div className="flex min-h-[12rem] flex-col items-center justify-center py-12 text-center align-middle">
             <img
                 className="w-24 opacity-10"
                 src={process.env.PUBLIC_URL + "/33_Tasks.svg"}
@@ -133,8 +133,8 @@ export default function ToDoList() {
     }
 
     return (
-        <div className="font-panel-mono text-todo-mono">
-            <form onSubmit={handleSubmit}>
+        <div className="flex h-full min-h-0 flex-col font-panel-mono text-todo-mono">
+            <form className="shrink-0" onSubmit={handleSubmit}>
                 <input
                     className="mb-0 box-border w-full max-w-full rounded border border-ink-ghost bg-surface-1 px-1.5 py-1 text-todo-mono placeholder:text-ink-ghost focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 dark:border-ink-dim"
                     type="text"
@@ -143,9 +143,11 @@ export default function ToDoList() {
                     placeholder="New task..."
                 />
             </form>
-            {toDoList.length === 0
-                ? toDoListPlaceholderElement
-                : toDoListRendered}
+            <div className="scrollbar-panel min-h-0 flex-1 overflow-y-auto overflow-x-hidden overscroll-contain">
+                {toDoList.length === 0
+                    ? toDoListPlaceholderElement
+                    : toDoListRendered}
+            </div>
         </div>
     );
 }

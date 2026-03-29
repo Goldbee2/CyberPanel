@@ -39,7 +39,7 @@ export default function ServerStatusComponent() {
 
     return (
         <div className="flex h-full w-28 flex-row items-center gap-2">
-            <p className="text-xs text-ink-tertiary">SERVER_STATUS</p>
+            <p className="text-xs font-mono tracking-wide text-ink-tertiary">SERVER_STATUS</p>
             <span
                 className={`text-lg font-mono select-none ${currentStatus === "green" ? "text-lime-400" : currentStatus === "yellow" ? "text-yellow-300" : "text-red-400"}`}
                 aria-hidden

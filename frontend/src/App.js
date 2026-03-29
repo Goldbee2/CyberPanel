@@ -12,7 +12,6 @@ import WeatherProvider from "./components/Weather/WeatherProvider.tsx";
 import ServerStatusComponent from "./components/ServerStatusComponent";
 import { useTheme } from "./components/Theme/ThemeProvider";
 import WeatherIcon from "./components/Weather/WeatherIcon.tsx";
-import BracketFrame from "./components/BracketFrame";
 import grainSvgUrl from "./assets/noise.svg";
 
 function ThemeToggle() {
@@ -42,7 +41,7 @@ export default function App() {
 function Main() {
     return (
         <WeatherProvider>
-            <div className="relative isolate min-h-screen max-h-screen overflow-hidden bg-canvas text-ink">
+            <div className="relative isolate flex h-svh max-h-svh flex-col overflow-hidden bg-canvas text-ink">
                 <div
                     className="pointer-events-none absolute inset-0 z-0 bg-repeat opacity-[0.035] dark:opacity-[0.045]"
                     style={{
@@ -51,38 +50,48 @@ function Main() {
                     }}
                     aria-hidden
                 />
-                <div className="relative z-10 flex min-h-screen flex-col">
-                    <div className="flex h-[30px] w-screen items-center justify-between gap-4 px-6 py-0.5">
+                <div className="relative z-10 flex min-h-0 flex-1 flex-col">
+                    <div className="flex h-[30px] w-full shrink-0 items-center justify-between gap-4 px-6 py-0.5">
                         <ServerStatusComponent />
                         <ThemeToggle />
                     </div>
-                    <main className="flex w-screen flex-row gap-4 p-4">
-                        <div className="w-2/3 flex flex-col gap-4">
-                            <BracketFrame
-                                className="w-full p-4"
-                                contentClassName="flex w-full min-w-0 flex-row items-center justify-between gap-6"
-                            >
-                                <div className="flex min-w-0 flex-1 flex-col">
-                                    <PanelComponent title="Time and Weather">
+                    <main className="flex min-h-0 min-w-0 flex-1 flex-row gap-4 p-4">
+                        <div className="flex min-h-0 w-2/3 min-w-0 flex-col gap-4">
+                            <div className="flex min-w-0 shrink-0 items-stretch gap-6">
+                                <div className="flex min-h-0 min-w-0 flex-1 flex-col">
+                                    <PanelComponent
+                                        title="Time and Weather"
+                                        className="flex h-full min-h-0 flex-col"
+                                    >
                                         <ClockSection />
-                                        <hr className="border-0.5 border-ink-tertiary opacity-10 my-4" />
+                                        <hr className="my-4 border-0.5 border-ink-tertiary opacity-10" />
                                         <WeatherComponent />
                                     </PanelComponent>
                                 </div>
-                                <div className="shrink-0 self-center">
-                                    <WeatherIcon />
+                                <div className="box-border flex min-h-0 shrink-0 flex-col self-stretch border border-solid border-subtle-accent p-5">
+                                    <div className="flex min-h-0 flex-1 flex-col items-center justify-center">
+                                        <WeatherIcon />
+                                    </div>
                                 </div>
-                            </BracketFrame>
-                            <BracketFrame className="p-4">
-                                <PanelComponent id="to-do-list" title="To Do">
+                            </div>
+                            <div className="flex min-h-0 min-w-0 flex-1 flex-col">
+                                <PanelComponent
+                                    id="to-do-list"
+                                    title="To Do"
+                                    className="flex h-full min-h-0 flex-col"
+                                >
                                     <ToDoList />
                                 </PanelComponent>
-                            </BracketFrame>
+                            </div>
                         </div>
-                        <BracketFrame className="w-1/3 p-4">
-                            <LightsComponent />
-                            <CalendarComponent />
-                        </BracketFrame>
+                        <div className="flex min-h-0 w-1/3 min-w-0 flex-col gap-4">
+                            <div className="shrink-0">
+                                <LightsComponent />
+                            </div>
+                            <div className="flex min-h-0 min-w-0 flex-1 flex-col">
+                                <CalendarComponent />
+                            </div>
+                        </div>
                     </main>
                 </div>
             </div>
