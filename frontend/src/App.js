@@ -29,19 +29,21 @@ function ThemeToggle() {
 
 export default function App() {
     return (
-        <Router>
-            <Routes>
-                <Route path="/" element={<Main />} />
-                <Route path="/authRedirect" element={<AuthRedirect />} />
-            </Routes>
-        </Router>
+        <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
+            <Router>
+                <Routes>
+                    <Route path="/" element={<Main />} />
+                    <Route path="/authRedirect" element={<AuthRedirect />} />
+                </Routes>
+            </Router>
+        </div>
     );
 }
 
 function Main() {
     return (
         <WeatherProvider>
-            <div className="relative isolate flex h-svh max-h-svh flex-col overflow-hidden bg-canvas text-ink">
+            <div className="relative isolate flex min-h-0 flex-1 flex-col overflow-hidden bg-canvas text-ink">
                 <div
                     className="pointer-events-none absolute inset-0 z-0 bg-repeat opacity-[0.035] dark:opacity-[0.045]"
                     style={{
@@ -50,45 +52,45 @@ function Main() {
                     }}
                     aria-hidden
                 />
-                <div className="relative z-10 flex min-h-0 flex-1 flex-col">
+                <div className="relative z-10 flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
                     <div className="flex h-[30px] w-full shrink-0 items-center justify-between gap-4 px-6 py-0.5">
                         <ServerStatusComponent />
                         <ThemeToggle />
                     </div>
-                    <main className="flex min-h-0 min-w-0 flex-1 flex-row gap-4 p-4">
-                        <div className="flex min-h-0 w-2/3 min-w-0 flex-col gap-4">
+                    <main className="flex min-h-0 min-w-0 flex-1 flex-row gap-4 overflow-hidden p-4">
+                        <div className="flex min-h-0 w-2/3 min-w-0 flex-col gap-4 overflow-hidden">
                             <div className="flex min-w-0 shrink-0 items-stretch gap-6">
                                 <div className="flex min-h-0 min-w-0 flex-1 flex-col">
                                     <PanelComponent
                                         title="Time and Weather"
-                                        className="flex h-full min-h-0 flex-col"
+                                        className="h-full min-h-0"
                                     >
                                         <ClockSection />
                                         <hr className="my-4 border-0.5 border-ink-tertiary opacity-10" />
                                         <WeatherComponent />
                                     </PanelComponent>
                                 </div>
-                                <div className="box-border flex min-h-0 shrink-0 flex-col self-stretch border border-solid border-subtle-accent p-5">
-                                    <div className="flex min-h-0 flex-1 flex-col items-center justify-center">
+                                <div className="box-border flex min-h-0 min-w-0 shrink-0 flex-col self-stretch border border-solid border-subtle-accent p-5">
+                                    <div className="flex min-h-0 min-w-0 flex-1 flex-col items-center justify-center overflow-hidden">
                                         <WeatherIcon />
                                     </div>
                                 </div>
                             </div>
-                            <div className="flex min-h-0 min-w-0 flex-1 flex-col">
+                            <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
                                 <PanelComponent
                                     id="to-do-list"
                                     title="To Do"
-                                    className="flex h-full min-h-0 flex-col"
+                                    className="min-h-0 flex-1"
                                 >
                                     <ToDoList />
                                 </PanelComponent>
                             </div>
                         </div>
-                        <div className="flex min-h-0 w-1/3 min-w-0 flex-col gap-4">
-                            <div className="shrink-0">
+                        <div className="flex min-h-0 w-1/3 min-w-0 flex-col gap-4 overflow-hidden">
+                            <div className="scrollbar-panel max-h-[min(22rem,38svh)] min-h-0 shrink-0 overflow-y-auto overflow-x-hidden">
                                 <LightsComponent />
                             </div>
-                            <div className="flex min-h-0 min-w-0 flex-1 flex-col">
+                            <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
                                 <CalendarComponent />
                             </div>
                         </div>

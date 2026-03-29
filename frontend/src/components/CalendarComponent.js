@@ -260,19 +260,34 @@ export default function CalendarComponent() {
   switch (componentState) {
     case "loading":
       return (
-        <PanelComponent id="calendar" title="Calendar" scrollable>
+        <PanelComponent
+          id="calendar"
+          title="Calendar"
+          scrollable
+          className="min-h-0 flex-1"
+        >
           <p className="font-panel-mono text-ink-tertiary">Loading...</p>
         </PanelComponent>
       );
     case "error":
       return (
-        <PanelComponent id="calendar" title="Calendar" scrollable>
+        <PanelComponent
+          id="calendar"
+          title="Calendar"
+          scrollable
+          className="min-h-0 flex-1"
+        >
           <Error />
         </PanelComponent>
       );
     case "authPrompt":
       return (
-        <PanelComponent id="calendar" title="Calendar" scrollable>
+        <PanelComponent
+          id="calendar"
+          title="Calendar"
+          scrollable
+          className="min-h-0 flex-1"
+        >
           <AuthPrompt url={authURL} />
         </PanelComponent>
       );
@@ -280,7 +295,12 @@ export default function CalendarComponent() {
       const items = Array.isArray(calendarData.items) ? calendarData.items : [];
       const sections = groupItemsByStartDay(items);
       return (
-        <PanelComponent id="calendar" title="Calendar" scrollable>
+        <PanelComponent
+          id="calendar"
+          title="Calendar"
+          scrollable
+          className="min-h-0 flex-1"
+        >
           <div className="font-panel-mono text-ink-secondary">
             {items.length === 0 ? (
               <p className="text-ink-tertiary">No upcoming events.</p>
@@ -304,7 +324,12 @@ export default function CalendarComponent() {
     }
     default:
       return (
-        <PanelComponent id="calendar" title="Calendar" scrollable>
+        <PanelComponent
+          id="calendar"
+          title="Calendar"
+          scrollable
+          className="min-h-0 flex-1"
+        >
           <p className="font-panel-mono text-ink-tertiary">Loading...</p>
         </PanelComponent>
       );

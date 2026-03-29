@@ -17,7 +17,7 @@ export default function WeatherIcon() {
         <img
             src={resolveWeatherIconUrl(icon)}
             alt={icon}
-            className="h-60 w-60 shrink-0 object-contain"
+            className="h-auto w-auto max-h-[min(15rem,32svh)] max-w-[min(15rem,42vw)] shrink-0 object-contain"
         />
     );
 }

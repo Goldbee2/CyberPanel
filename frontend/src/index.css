@@ -14,6 +14,14 @@
 }
 
 @layer base {
+  html {
+    @apply m-0 h-svh max-h-svh overflow-hidden;
+  }
+
+  #root {
+    @apply flex h-full max-h-full min-h-0 flex-col overflow-hidden;
+  }
+
   :root {
     --font-display: "Playfair Display", ui-serif, Georgia, serif;
     --font-mono: "IBM Plex Mono", ui-monospace, monospace;
@@ -72,7 +80,7 @@
   }
 
   body {
-    @apply m-0 bg-canvas font-sans text-ink antialiased;
+    @apply m-0 h-full max-h-full min-h-0 overflow-hidden bg-canvas font-sans text-ink antialiased;
   }
 
   code {

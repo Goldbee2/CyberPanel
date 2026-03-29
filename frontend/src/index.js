@@ -9,7 +9,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <ThemeProvider>
-      <App />
+      <div className="flex h-svh max-h-svh min-h-0 flex-col overflow-hidden">
+        <App />
+      </div>
     </ThemeProvider>
   </React.StrictMode>
 );

@@ -99,7 +99,7 @@ function LightsComponent() {
                                     {d.deviceName || device}
                                 </span>
                                 {canTurn ? (
-                                    <span className="flex shrink-0 gap-1.5 tabular-nums">
+                                    <span className="flex shrink-0 items-center gap-3 font-panel-mono tabular-nums tracking-tight">
                                         <button
                                             type="button"
                                             disabled={busy}
@@ -110,13 +110,38 @@ function LightsComponent() {
                                                     true,
                                                 )
                                             }
-                                            className={`rounded border px-2 py-0.5 transition-colors focus:outline-none focus:ring-1 focus:ring-sky-500 disabled:opacity-40 ${
-                                                isOn === true
-                                                    ? "border-ink-accent/50 bg-surface-2 text-ink-accent"
-                                                    : "border-surface-3 text-ink-tertiary hover:border-ink-dim hover:text-ink-secondary"
-                                            }`}
+                                            className="px-0 py-0.5 text-left transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-sky-500 disabled:opacity-40 hover:text-ink-secondary"
+                                            aria-pressed={isOn === true}
                                         >
-                                            ON
+                                            <span
+                                                className={
+                                                    isOn === true
+                                                        ? "text-ink-accent/45"
+                                                        : "text-ink-tertiary/35"
+                                                }
+                                                aria-hidden="true"
+                                            >
+                                                [
+                                            </span>
+                                            <span
+                                                className={
+                                                    isOn === true
+                                                        ? "text-ink-accent"
+                                                        : "text-ink-dim"
+                                                }
+                                            >
+                                                {" ON  "}
+                                            </span>
+                                            <span
+                                                className={
+                                                    isOn === true
+                                                        ? "text-ink-accent/45"
+                                                        : "text-ink-tertiary/35"
+                                                }
+                                                aria-hidden="true"
+                                            >
+                                                ]
+                                            </span>
                                         </button>
                                         <button
                                             type="button"
@@ -128,13 +153,38 @@ function LightsComponent() {
                                                     false,
                                                 )
                                             }
-                                            className={`rounded border px-2 py-0.5 transition-colors focus:outline-none focus:ring-1 focus:ring-sky-500 disabled:opacity-40 ${
-                                                isOn === false
-                                                    ? "border-ink-accent/50 bg-surface-2 text-ink-accent"
-                                                    : "border-surface-3 text-ink-tertiary hover:border-ink-dim hover:text-ink-secondary"
-                                            }`}
+                                            className="px-0 py-0.5 text-left transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-sky-500 disabled:opacity-40 hover:text-ink-secondary"
+                                            aria-pressed={isOn === false}
                                         >
-                                            OFF
+                                            <span
+                                                className={
+                                                    isOn === false
+                                                        ? "text-ink-accent/45"
+                                                        : "text-ink-tertiary/35"
+                                                }
+                                                aria-hidden="true"
+                                            >
+                                                [
+                                            </span>
+                                            <span
+                                                className={
+                                                    isOn === false
+                                                        ? "text-ink-accent"
+                                                        : "text-ink-dim"
+                                                }
+                                            >
+                                                {" OFF "}
+                                            </span>
+                                            <span
+                                                className={
+                                                    isOn === false
+                                                        ? "text-ink-accent/45"
+                                                        : "text-ink-tertiary/35"
+                                                }
+                                                aria-hidden="true"
+                                            >
+                                                ]
+                                            </span>
                                         </button>
                                     </span>
                                 ) : (

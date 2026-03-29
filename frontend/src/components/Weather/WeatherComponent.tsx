@@ -57,7 +57,7 @@ function WeatherComponent() {
 
     return (
         <div className="flex flex-row items-center gap-6">
-            <h2 className="text-ink text-4xl font-display">
+            <h2 className="text-ink text-5xl font-display">
                 {currentTemp}&#176;
             </h2>
 

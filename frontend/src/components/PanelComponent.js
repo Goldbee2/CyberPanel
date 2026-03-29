@@ -4,10 +4,8 @@ function PanelComponent(props) {
     const hasTitle = props.title != null && props.title !== "";
     const scrollable = Boolean(props.scrollable);
     const frameClass = [
-        "relative m-0 min-w-0 rounded-none border border-solid border-subtle-accent text-[length:var(--component-font-size)] text-ink-secondary",
-        scrollable
-            ? "flex h-full min-h-0 min-w-0 flex-col overflow-hidden"
-            : "overflow-hidden",
+        "relative m-0 flex min-h-0 min-w-0 flex-col rounded-none border border-solid border-subtle-accent text-[length:var(--component-font-size)] text-ink-secondary",
+        scrollable ? "min-h-0 overflow-hidden" : "overflow-hidden",
         hasTitle ? "px-5 pb-5 pt-2.5" : "px-5 pb-5 pt-5",
         props.className || "",
     ]

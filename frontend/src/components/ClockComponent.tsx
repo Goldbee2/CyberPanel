@@ -17,7 +17,7 @@ export default function ClockSection() {
 
     return (
         <div className="flex flex-col gap-1 leading-none align-middle">
-            <h2 className="font-display text-[4rem] text-ink">
+            <h2 className="font-display text-[clamp(2.25rem,9vw,4rem)] leading-none text-ink">
                 {date.toLocaleString("en-US", {
                     hour: "numeric",
                     minute: "numeric",
