@@ -13,6 +13,19 @@ export type WeatherGeoLocation = {
   zip?: string;
 };
 
+export type WeatherDailyForecast = {
+  dateKey: string;
+  weekday: string;
+  tempMin: number;
+  tempMax: number;
+  description: string;
+};
+
+export type WeatherAirQuality = {
+  aqi: number;
+  label: string;
+};
+
 /** Successful `/weather` payload (OpenWeather current + `units` + optional `geoLocation`). */
 export type WeatherData = {
   weather: Array<{
@@ -37,6 +50,9 @@ export type WeatherData = {
   timezone?: number;
   geoLocation?: WeatherGeoLocation;
   units?: string;
+  forecast?: WeatherDailyForecast[];
+  airQuality?: WeatherAirQuality | null;
+  fetchedAt?: string;
 };
 
 type WeatherContextValue = {

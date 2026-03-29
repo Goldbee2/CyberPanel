@@ -24,7 +24,7 @@ export default function ClockSection() {
                     hour12: true,
                 }).toLowerCase()}
             </h2>
-            <h3 className="text-xl font-display text-ink-tertiary">
+            <h3 className="text-xl font-display text-ink-tertiary italic">
                 {formatClockDate(date)}
             </h3>
         </div>

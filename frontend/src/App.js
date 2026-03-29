@@ -7,12 +7,16 @@ import AuthRedirect from "./AuthRedirect";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import PanelComponent from "./components/PanelComponent";
-import WeatherComponent from "./components/Weather/WeatherComponent";
+import {
+    WeatherCurrentSection,
+    WeatherSecondarySection,
+} from "./components/Weather/WeatherComponent";
 import WeatherProvider from "./components/Weather/WeatherProvider.tsx";
 import ServerStatusComponent from "./components/ServerStatusComponent";
 import { useTheme } from "./components/Theme/ThemeProvider";
 import WeatherIcon from "./components/Weather/WeatherIcon.tsx";
 import grainSvgUrl from "./assets/noise.svg";
+import BracketFrame from "./components/BracketFrame";
 
 function ThemeToggle() {
     const { theme, toggleTheme } = useTheme();
@@ -59,22 +63,25 @@ function Main() {
                     </div>
                     <main className="flex min-h-0 min-w-0 flex-1 flex-row gap-4 overflow-hidden p-4">
                         <div className="flex min-h-0 w-2/3 min-w-0 flex-col gap-4 overflow-hidden">
-                            <div className="flex min-w-0 shrink-0 items-stretch gap-6">
-                                <div className="flex min-h-0 min-w-0 flex-1 flex-col">
-                                    <PanelComponent
-                                        title="Time and Weather"
-                                        className="h-full min-h-0"
-                                    >
-                                        <ClockSection />
-                                        <hr className="my-4 border-0.5 border-ink-tertiary opacity-10" />
-                                        <WeatherComponent />
-                                    </PanelComponent>
-                                </div>
-                                <div className="box-border flex min-h-0 min-w-0 shrink-0 flex-col self-stretch border border-solid border-subtle-accent p-5">
-                                    <div className="flex min-h-0 min-w-0 flex-1 flex-col items-center justify-center overflow-hidden">
-                                        <WeatherIcon />
+                            <div className="flex min-w-0 shrink-0 flex-col">
+                                <PanelComponent
+                                    title="Time and Weather"
+                                    className="h-full min-h-0"
+                                >
+                                    <div className="flex min-w-0 flex-row items-stretch gap-5">
+                                        <div className="flex min-h-0 min-w-0 flex-1 flex-col">
+                                            <ClockSection />
+                                            <hr className="my-4 border-0.5 border-ink-tertiary opacity-10" />
+                                            <WeatherCurrentSection />
+                                        </div>
+                                        <div className="flex shrink-0 flex-col items-center justify-center self-center">
+                                            <BracketFrame className="p-2 border-subtle-accent">
+                                                <WeatherIcon panelLayout />
+                                            </BracketFrame>
+                                        </div>
                                     </div>
-                                </div>
+                                    <WeatherSecondarySection />
+                                </PanelComponent>
                             </div>
                             <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
                                 <PanelComponent
