@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import PanelComponent from "./PanelComponent";
 import Error from "./Error";
 
@@ -6,24 +6,33 @@ const backendOrigin = (
   process.env.REACT_APP_API_BASE_URL || "https://localhost:9000"
 ).replace(/\/$/, "");
 
-console.log(backendOrigin, process.env);
-
-function generateDeviceDOMElement(device) {
+function GoveeLuxHeader() {
   return (
-    <li className="flex flex-row items-center text-ink-secondary">
-      <span className="material-symbols-outlined mr-2.5">lightbulb</span>
-      {device.deviceName}
-    </li>
+    <h2 className="-mx-4 mb-4 -mt-0 py-1.5 pl-4 pr-4 text-left text-xs font-light text-ink-tertiary font-panel-mono tracking-wide">
+      <span className="select-none text-ink-dim" aria-hidden="true">
+        +--[*]--+{" "}
+      </span>
+      GOVEE / LUX
+    </h2>
   );
+}
+
+function supportsTurn(device) {
+  if (!Array.isArray(device.supportCmds)) {
+    return true;
+  }
+  return device.supportCmds.includes("turn");
 }
 
 function LightsComponent() {
   const [lightData, setLightData] = useState({});
   const [componentState, setComponentState] = useState("loading");
+  /** @type {[Record<string, boolean | null>, function]} */
+  const [powerByDevice, setPowerByDevice] = useState({});
+  const [pendingDevice, setPendingDevice] = useState(null);
 
-  useEffect(() => {
+  const loadLights = useCallback(() => {
     setComponentState("loading");
-
     fetch(`${backendOrigin}/lights/getLights`)
       .then((res) => res.json())
       .then((parsed) => {
@@ -41,24 +50,107 @@ function LightsComponent() {
       });
   }, []);
 
+  useEffect(() => {
+    loadLights();
+  }, [loadLights]);
+
+  const sendPower = useCallback(
+    (device, model, on) => {
+      const mac = device;
+      setPendingDevice(mac);
+      fetch(`${backendOrigin}/lights/control`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ device, model, on }),
+      })
+        .then((res) => res.json().then((body) => ({ res, body })))
+        .then(({ res, body }) => {
+          if (!res.ok || !body.ok) {
+            console.error("Govee control failed:", body);
+            return;
+          }
+          setPowerByDevice((prev) => ({ ...prev, [mac]: on }));
+        })
+        .catch((err) => console.error("Govee control error:", err))
+        .finally(() => setPendingDevice(null));
+    },
+    []
+  );
+
   if (componentState === "error") {
     return (
-      <PanelComponent>
+      <PanelComponent title="">
+        <GoveeLuxHeader />
         <Error />
       </PanelComponent>
     );
-  } else if (componentState === "success") {
+  }
+
+  if (componentState === "success") {
     const lights = Array.isArray(lightData?.devices) ? lightData.devices : [];
     return (
-      <PanelComponent title="Govee Lights">
-        <ul className="list-none p-0">{lights.map(generateDeviceDOMElement)}</ul>
+      <PanelComponent title="">
+        <GoveeLuxHeader />
+        <ul className="list-none space-y-2 p-0 font-panel-mono text-xs text-ink-secondary">
+          {lights.map((d) => {
+            const mac = d.device;
+            const rawPower = powerByDevice[mac];
+            const isOn = rawPower === undefined ? null : rawPower;
+            const busy = pendingDevice === mac;
+            const canTurn = supportsTurn(d);
+            return (
+              <li
+                key={mac}
+                className="flex flex-row flex-wrap items-center gap-x-3 gap-y-2 border-b border-surface-2/60 pb-2 last:border-b-0 last:pb-0"
+              >
+                <span className="min-w-0 flex-1 truncate text-ink-secondary">
+                  <span className="select-none text-ink-dim" aria-hidden="true">
+                    {"|> "}
+                  </span>
+                  {d.deviceName || mac}
+                </span>
+                {canTurn ? (
+                  <span className="flex shrink-0 gap-1.5 tabular-nums">
+                    <button
+                      type="button"
+                      disabled={busy}
+                      onClick={() => sendPower(d.device, d.model, true)}
+                      className={`rounded border px-2 py-0.5 transition-colors focus:outline-none focus:ring-1 focus:ring-sky-500 disabled:opacity-40 ${
+                        isOn === true
+                          ? "border-ink-accent/50 bg-surface-2 text-ink-accent"
+                          : "border-surface-3 text-ink-tertiary hover:border-ink-dim hover:text-ink-secondary"
+                      }`}
+                    >
+                      ON
+                    </button>
+                    <button
+                      type="button"
+                      disabled={busy}
+                      onClick={() => sendPower(d.device, d.model, false)}
+                      className={`rounded border px-2 py-0.5 transition-colors focus:outline-none focus:ring-1 focus:ring-sky-500 disabled:opacity-40 ${
+                        isOn === false
+                          ? "border-ink-accent/50 bg-surface-2 text-ink-accent"
+                          : "border-surface-3 text-ink-tertiary hover:border-ink-dim hover:text-ink-secondary"
+                      }`}
+                    >
+                      OFF
+                    </button>
+                  </span>
+                ) : (
+                  <span className="shrink-0 text-ink-dim">[N/A]</span>
+                )}
+              </li>
+            );
+          })}
+        </ul>
       </PanelComponent>
     );
   }
 
   return (
-    <PanelComponent title="Govee Lights">
-      <p className="text-ink-tertiary">Loading...</p>
+    <PanelComponent title="">
+      <GoveeLuxHeader />
+      <p className="font-panel-mono text-sm text-ink-tertiary">Loading...</p>
     </PanelComponent>
   );
 }

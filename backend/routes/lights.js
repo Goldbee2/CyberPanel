@@ -14,13 +14,32 @@ router.get("/getLights", function (req, res, next) {
   });
 });
 
-// router.post("/setLight/:lightID", function (req, res, next) {
-//   res.send("");
-//   // Forward command to govee API. Await response, then send back error or success code.
-
-//   // Frontend logic: first: populate lights w/ getLights
-//   // Each device in lights list has its own controls etc. linked to a function that sends matching request to API using that device's info
-//   // On success response, changes display state to fit w/ it.
-// });
+router.put("/control", function (req, res) {
+  const { device, model, on } = req.body || {};
+  if (
+    typeof device !== "string" ||
+    device.length === 0 ||
+    typeof model !== "string" ||
+    model.length === 0 ||
+    typeof on !== "boolean"
+  ) {
+    res.status(400).json({
+      ok: false,
+      error: "Expected JSON body: { device, model, on } (on must be boolean).",
+    });
+    return;
+  }
+  lightFunctions.setLightPower({ device, model, on }).then((result) => {
+    res.setHeader("content-type", "application/json");
+    if (result.ok) {
+      res.json({ ok: true, data: result.json });
+    } else {
+      res.status(result.status >= 400 ? result.status : 502).json({
+        ok: false,
+        data: result.json,
+      });
+    }
+  });
+});
 
 module.exports = router;

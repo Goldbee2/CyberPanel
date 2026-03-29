@@ -37,4 +37,54 @@ function getLights() {
   return inFlight;
 }
 
-module.exports = { getLights };
+function invalidateDeviceListCache() {
+  cachedPayload = null;
+  cacheExpiresAt = 0;
+}
+
+/**
+ * @param {{ device: string; model: string; on: boolean }} params
+ * @returns {Promise<{ ok: boolean; status: number; json: object }>}
+ */
+function setLightPower({ device, model, on }) {
+  const goveeKey = require("./apiKeys").getKey("govee");
+  const body = {
+    device,
+    model,
+    cmd: { name: "turn", value: on ? "on" : "off" },
+  };
+  return fetch("https://developer-api.govee.com/v1/devices/control", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      "Govee-Api-Key": goveeKey,
+    },
+    body: JSON.stringify(body),
+  })
+    .then(async (res) => {
+      let json = {};
+      try {
+        json = await res.json();
+      } catch (_) {
+        /* non-JSON body */
+      }
+      const codeOk =
+        json &&
+        (json.code === 200 ||
+          String(json.message || "").toLowerCase() === "success");
+      if (res.ok && codeOk) {
+        invalidateDeviceListCache();
+      }
+      return { ok: Boolean(res.ok && codeOk), status: res.status, json };
+    })
+    .catch((err) => {
+      console.log("Govee control error:", err);
+      return {
+        ok: false,
+        status: 0,
+        json: { message: err && err.message ? err.message : "Network error" },
+      };
+    });
+}
+
+module.exports = { getLights, setLightPower };
