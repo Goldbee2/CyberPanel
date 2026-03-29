@@ -42,12 +42,12 @@ export default function App() {
 function Main() {
     return (
         <WeatherProvider>
-            <div className="relative isolate min-h-screen overflow-hidden bg-canvas text-ink">
+            <div className="relative isolate min-h-screen max-h-screen overflow-hidden bg-canvas text-ink">
                 <div
                     className="pointer-events-none absolute inset-0 z-0 bg-repeat opacity-[0.035] dark:opacity-[0.045]"
                     style={{
                         backgroundImage: `url(${grainSvgUrl})`,
-                        backgroundSize: "160px 160px",
+                        backgroundSize: "400px 400px",
                     }}
                     aria-hidden
                 />

@@ -69,7 +69,12 @@ function getKey(apiName) {
       }
 
       case "frontendOrigin":
-        return (parsedKeys && parsedKeys.FRONTEND_ORIGIN) || "";
+      try{
+        return parsedKeys.FRONTEND_ORIGIN;
+      }catch(err){
+        console.log(err.message);
+        return "ERROR_KEY_NOT_FOUND";
+      }
 
     default:
       console.log("Invalid api name passed to getKey: " + apiName);
