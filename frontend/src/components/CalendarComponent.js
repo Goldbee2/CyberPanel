@@ -65,17 +65,22 @@ export default function CalendarComponent() {
 
     setComponentState("loading");
 
-    if (cookies.get("googleAuthToken")) {
+    const storedToken = cookies.get("googleAuthToken");
+    if (storedToken) {
       setComponentState("loading");
-      fetch(`${backendOrigin}/calendar`)
+      fetch(`${backendOrigin}/calendar`, {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      })
         .then((res) => {
-          if (res.status != 200) {
+          if (!res.ok) {
             cookies.remove("googleAuthToken");
             setComponentState("authPrompt");
+            return null;
           }
           return res.json();
         })
         .then((resJson) => {
+          if (!resJson) return;
           setCalendarData(resJson);
           setComponentState("displayEvents");
         })

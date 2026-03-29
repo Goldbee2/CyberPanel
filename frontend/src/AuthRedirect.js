@@ -7,10 +7,14 @@ import { Navigate } from "react-router-dom";
 export default function AuthRedirect() {
   const queryParameters = new URLSearchParams(window.location.search);
   const cookies = new Cookies();
-  cookies.set("googleAuthToken", queryParameters.get("googleAuthToken"), {
-    secure: true,
-    sameSite: "Strict",
-  });
+  const token = queryParameters.get("googleAuthToken");
+  if (token) {
+    cookies.set("googleAuthToken", token, {
+      secure: window.location.protocol === "https:",
+      sameSite: "strict",
+      path: "/",
+    });
+  }
 
   return (
     <>
@@ -19,7 +23,7 @@ export default function AuthRedirect() {
         This page should redirect you. If it doesn&apos;t, click{" "}
         <a
           className="text-sky-600 underline hover:text-sky-700 dark:text-sky-400"
-          href="https://192.168.1.127:3000"
+          href={`${window.location.origin}/`}
         >
           here
         </a>{" "}
