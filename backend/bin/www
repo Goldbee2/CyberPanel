@@ -9,6 +9,8 @@ var debug = require('debug')('backend:server');
 var http = require('http');
 var https = require('https');
 var fs = require('fs');
+var path = require('path');
+var os = require('os');
 
 /**
  * Get port from environment and store in Express.
@@ -18,15 +20,31 @@ var port = normalizePort(process.env.PORT || '9000');
 app.set('port', port);
 
 /**
- * Create HTTP server.
+ * Create HTTP or HTTPS server (HTTPS when certificate files exist).
  */
 
-var credentials = {
-  key: fs.readFileSync('./certificate/server.key'),
-  cert: fs.readFileSync('./certificate/server.cert')
-};
+var certDir = path.join(__dirname, '..', 'certificate');
+var keyPath = path.join(certDir, 'server.key');
+var certPath = path.join(certDir, 'server.cert');
+var useTls =
+  fs.existsSync(keyPath) &&
+  fs.existsSync(certPath);
 
-var server = https.createServer(credentials, app);
+var server = useTls
+  ? https.createServer(
+      {
+        key: fs.readFileSync(keyPath),
+        cert: fs.readFileSync(certPath),
+      },
+      app
+    )
+  : http.createServer(app);
+
+if (!useTls) {
+  console.warn(
+    'No TLS certs at certificate/server.key and certificate/server.cert; starting HTTP. Add those files for HTTPS.'
+  );
+}
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -90,8 +108,27 @@ function onError(error) {
 
 function onListening() {
   var addr = server.address();
-  var bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
-  debug('Listening on ' + bind);
+  if (typeof addr === 'string') {
+    debug('Listening on pipe ' + addr);
+    return;
+  }
+
+  var proto = useTls ? 'https' : 'http';
+  var port = addr.port;
+
+  console.log('');
+  console.log('Backend listening on port ' + port + ' (all interfaces). Use one of:');
+  console.log('  ' + proto + '://127.0.0.1:' + port + '   (this PC)');
+  var ifaces = os.networkInterfaces();
+  Object.keys(ifaces).forEach(function (name) {
+    ifaces[name].forEach(function (iface) {
+      var v4 = iface.family === 'IPv4' || iface.family === 4;
+      if (v4 && !iface.internal) {
+        console.log('  ' + proto + '://' + iface.address + ':' + port + '   (' + name + ')');
+      }
+    });
+  });
+  console.log('');
+
+  debug('Listening on port ' + port);
 }

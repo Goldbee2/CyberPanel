@@ -8,9 +8,10 @@ router.get("/getLights", function (req, res, next) {
 
   a.then((b) => {
     console.log(b);
+    res.set("Cache-Control", "private, max-age=60");
+    res.setHeader("content-type", "application/json");
     res.send(b);
   });
-  res.setHeader("content-type", "application/json");
 });
 
 // router.post("/setLight/:lightID", function (req, res, next) {

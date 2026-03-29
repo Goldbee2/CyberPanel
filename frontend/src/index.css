@@ -1,13 +1,66 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@layer base {
+  :root {
+    --font-display: "Playfair Display", ui-serif, Georgia, serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+    /* Fallback until ThemeProvider sets --font-panel-mono (see THEME_FONT_STACKS.panelMono) */
+    --font-panel-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+    --theme-todo-mono: var(--theme-text-primary);
+
+    --theme-bg: #e3e3e3;
+    --theme-surface-1: #f5f5f3;
+    --theme-surface-2: #eeeeec;
+    --theme-surface-3: #e6e6e4;
+
+    --theme-text-primary: #2a2a28;
+    --theme-text-secondary: #4a4a46;
+    --theme-text-tertiary: #6a6a64;
+    --theme-text-dim: #8a8a84;
+    --theme-text-ghost: #a8a8a0;
+    --theme-text-accent: #141412;
+
+    --component-font-size: 16px;
+
+    /* Google Calendar event accent colors */
+    --Lavender: #7986cb;
+    --Sage: #33b679;
+    --Grape: #8e24aa;
+    --Flamingo: #e67c73;
+    --Banana: #f6c026;
+    --Tangerine: #f5511d;
+    --Peacock: #039be5;
+    --Graphite: #616161;
+    --Blueberry: #3f51b5;
+    --Basil: #0b8043;
+    --Tomato: #d60000;
+  }
+
+  html.dark {
+    --theme-bg: #0c0c0b;
+    --theme-surface-1: #111110;
+    --theme-surface-2: #1a1a18;
+    --theme-surface-3: #222220;
+
+    --theme-text-primary: #e8e8de;
+    --theme-text-secondary: #c8c8be;
+    --theme-text-tertiary: #888880;
+    --theme-text-dim: #555550;
+    --theme-text-ghost: #333330;
+    --theme-text-accent: #ffffff;
+
+    --theme-todo-mono: #ffffff;
+  }
+
+  body {
+    @apply m-0 bg-canvas font-sans text-ink antialiased;
+  }
+
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+      monospace;
+  }
 }

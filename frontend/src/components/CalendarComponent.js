@@ -4,32 +4,31 @@ import AuthPrompt from "./AuthPrompt";
 import Error from "./Error";
 import Cookies from "universal-cookie";
 
+const backendOrigin = (
+  process.env.REACT_APP_API_BASE_URL || "https://localhost:9000"
+).replace(/\/$/, "");
+
+/** Tailwind arbitrary border colors — must be static strings for JIT. */
+const CALENDAR_LEFT_BORDER = {
+  "1": "[border-left-color:var(--Lavender)]",
+  "2": "[border-left-color:var(--Sage)]",
+  "3": "[border-left-color:var(--Grape)]",
+  "4": "[border-left-color:var(--Flamingo)]",
+  "5": "[border-left-color:var(--Banana)]",
+  "6": "[border-left-color:var(--Tangerine)]",
+  "7": "[border-left-color:var(--Peacock)]",
+  "8": "[border-left-color:var(--Graphite)]",
+  "9": "[border-left-color:var(--Blueberry)]",
+  "10": "[border-left-color:var(--Basil)]",
+  "11": "[border-left-color:var(--Tomato)]",
+};
+
 export default function CalendarComponent() {
-  //states:
-  //Click to sign in
-  //Sign-in process
-  //Display calendar
-  //Errored
   const [calendarData, setCalendarData] = useState({});
   const [componentState, setComponentState] = useState("loading");
   const [authURL, setAuthURL] = useState("");
 
-  const googleCalendarColors = {
-    "1": "Lavender",
-    "2": "Sage",
-    "3": "Grape",
-    "4": "Flamingo",
-    "5": "Banana",
-    "6": "Tangerine",
-    "7": "Peacock",
-    "8": "Graphite",
-    "9": "Blueberry",
-    "10": "Basil",
-    "11": "Tomato",
-  };
-
   function createChildHTML(object) {
-    console.log(googleCalendarColors[object.colorId]);
     var date = "";
 
     if (object.start.dateTime) {
@@ -45,12 +44,18 @@ export default function CalendarComponent() {
       month: "short",
       day: "numeric",
       hour: "numeric",
-      minute: "numeric"
+      minute: "numeric",
     });
+    const leftBorder =
+      CALENDAR_LEFT_BORDER[object.colorId] ||
+      "[border-left-color:var(--Peacock)]";
     return (
-      <li className="calendar-event" style={{borderColor: "var(--" + googleCalendarColors[object.colorId] + ")"}}>
-        <p className="calendar-summary">{object.summary}</p>
-        <p className="calendar-date"> {date}</p>
+      <li
+        key={object.id || object.summary + date}
+        className={`my-2.5 flex list-none justify-between rounded-lg border-l-8 border-solid bg-surface-3 py-0.5 pl-4 pr-4 text-ink-secondary ${leftBorder}`}
+      >
+        <p className="text-left">{object.summary}</p>
+        <p className="w-40 text-left"> {date}</p>
       </li>
     );
   }
@@ -62,7 +67,7 @@ export default function CalendarComponent() {
 
     if (cookies.get("googleAuthToken")) {
       setComponentState("loading");
-      fetch("https://192.168.1.127:9000/calendar")
+      fetch(`${backendOrigin}/calendar`)
         .then((res) => {
           if (res.status != 200) {
             cookies.remove("googleAuthToken");
@@ -79,7 +84,7 @@ export default function CalendarComponent() {
           setComponentState("error");
         });
     } else {
-      fetch("https://192.168.1.127:9000/oauth2/getRedirect")
+      fetch(`${backendOrigin}/oauth2/getRedirect`)
         .then((res) => {
           return res.text();
         })
@@ -98,7 +103,7 @@ export default function CalendarComponent() {
     case "loading":
       return (
         <PanelComponent id="calendar" title="Calendar">
-          <p>Loading...</p>
+          <p className="text-ink-tertiary">Loading...</p>
         </PanelComponent>
       );
     case "error":
@@ -117,13 +122,13 @@ export default function CalendarComponent() {
       const listItems = calendarData.items.map((item) => createChildHTML(item));
       return (
         <PanelComponent id="calendar" title="Calendar">
-            <ul>{listItems}</ul>
+          <ul className="list-none p-0">{listItems}</ul>
         </PanelComponent>
       );
     default:
       return (
         <PanelComponent id="calendar" title="Calendar">
-          <p>Loading...</p>
+          <p className="text-ink-tertiary">Loading...</p>
         </PanelComponent>
       );
   }

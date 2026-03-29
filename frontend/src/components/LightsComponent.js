@@ -2,10 +2,16 @@ import React, { useEffect, useState } from "react";
 import PanelComponent from "./PanelComponent";
 import Error from "./Error";
 
+const backendOrigin = (
+  process.env.REACT_APP_API_BASE_URL || "https://localhost:9000"
+).replace(/\/$/, "");
+
+console.log(backendOrigin, process.env);
+
 function generateDeviceDOMElement(device) {
   return (
-    <li className="deviceListElement">
-      <span className="material-symbols-outlined govee-devices-list-icon">lightbulb</span>
+    <li className="flex flex-row items-center text-ink-secondary">
+      <span className="material-symbols-outlined mr-2.5">lightbulb</span>
       {device.deviceName}
     </li>
   );
@@ -18,12 +24,15 @@ function LightsComponent() {
   useEffect(() => {
     setComponentState("loading");
 
-    fetch("https://192.168.1.127:9000/lights/getLights")
-      .then((res) => {
-        return res.json();
-      })
+    fetch(`${backendOrigin}/lights/getLights`)
+      .then((res) => res.json())
       .then((parsed) => {
-        setLightData(parsed.data);
+        const data = parsed?.data;
+        if (!data || !Array.isArray(data.devices)) {
+          setComponentState("error");
+          return;
+        }
+        setLightData(data);
         setComponentState("success");
       })
       .catch((err) => {
@@ -39,13 +48,19 @@ function LightsComponent() {
       </PanelComponent>
     );
   } else if (componentState === "success") {
-    let lights = lightData.devices;
+    const lights = Array.isArray(lightData?.devices) ? lightData.devices : [];
     return (
       <PanelComponent title="Govee Lights">
-        <ul id="goveeDevicesList">{lights.map(generateDeviceDOMElement)}</ul>
+        <ul className="list-none p-0">{lights.map(generateDeviceDOMElement)}</ul>
       </PanelComponent>
     );
   }
+
+  return (
+    <PanelComponent title="Govee Lights">
+      <p className="text-ink-tertiary">Loading...</p>
+    </PanelComponent>
+  );
 }
 
 export default LightsComponent;

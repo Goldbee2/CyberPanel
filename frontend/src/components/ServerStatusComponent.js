@@ -1,23 +1,21 @@
 import React, { useState, useEffect } from "react";
 
+const backendOrigin = (
+  process.env.REACT_APP_API_BASE_URL || "https://localhost:9000"
+).replace(/\/$/, "");
+
+const statusIndicatorClass = {
+  yellow: "bg-yellow-300",
+  green: "bg-green-400",
+  red: "bg-red-500",
+};
+
 export default function ServerStatusComponent() {
   const [currentStatus, setCurrentStatus] = useState("green");
 
-  const statusColors = {
-    yellow: "rgb(255,255,100)",
-    green: "rgb(100, 255, 100)",
-    red: "rgb(211, 60, 60",
-  };
-
-  function createServerStatusIcon(currentStatusColor) {
-    let currentStatusCSSColor = statusColors[currentStatusColor];
-    console.log(currentStatusCSSColor);
-    return <div style={{ backgroundColor: currentStatusColor }}></div>;
-  }
-
   function pingServer() {
     console.log("Pinging server...");
-    fetch("https://localhost:9000/status")
+    fetch(`${backendOrigin}/status`)
       .then((res) => {
         console.log("Status:", res.status);
         if (res.status === 200) {
@@ -36,17 +34,15 @@ export default function ServerStatusComponent() {
     const interval = setInterval(() => {
       pingServer();
     }, 10000);
-  });
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <div id="server-status">
-      <p id="server-status-label">server status</p>
+    <div className="flex h-full w-28 flex-row items-center justify-between">
+      <p className="m-0 p-0 text-ink-secondary">server status</p>
       <div
-        id="server-status-indicator"
-        style={{
-          backgroundColor: statusColors[currentStatus],
-          transition: "0.6s",
-        }}
+        className={`h-3 w-3 shrink-0 rounded-full transition-colors duration-500 ${statusIndicatorClass[currentStatus]}`}
+        aria-hidden
       />
     </div>
   );

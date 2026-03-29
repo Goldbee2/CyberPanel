@@ -2,15 +2,16 @@
 // TODO: refactor the whole env keyring function, don't think the singleton pattern is needed
 // TODO: research key in memory best practices, want to make reduce vulnerabilities
 
+var path = require("path");
 
 var ApiKeys = function () {
   var instance;
 
   function createInstance() {
     var newInstance = require("dotenv").config({
-      path: "./APIKeys.env",
+      path: path.join(__dirname, "APIKeys.env"),
     }).parsed;
-    return newInstance;
+    return newInstance || {};
   }
 
   function getInstance() {

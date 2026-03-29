@@ -15,11 +15,16 @@ export default function AuthRedirect() {
   return (
     <>
       <Navigate to="/" />
-      <p>
-        This page should redirect you. If it doesn't, click{" "}
-        <a href="https://192.168.1.127:3000">here</a> to be redirected.
+      <p className="p-4 text-ink">
+        This page should redirect you. If it doesn&apos;t, click{" "}
+        <a
+          className="text-sky-600 underline hover:text-sky-700 dark:text-sky-400"
+          href="https://192.168.1.127:3000"
+        >
+          here
+        </a>{" "}
+        to be redirected.
       </p>
-      
     </>
   );
 }

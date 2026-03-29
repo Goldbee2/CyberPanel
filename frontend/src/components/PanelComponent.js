@@ -1,15 +1,24 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
 
 function PanelComponent(props) {
-  const panelHeight = 0;
-  const panelWidth = 0;
-
-  return <div id={props.id}  className="panel-component">
-    {/* <p className = "corner-symbol">&#8945;</p> */}
-    <h2 className="component-title">{props.title}</h2>
-    {props.children}
-    </div>;
+  return (
+    <div
+      id={props.id}
+      className={[
+        "relative overflow-hidden px-4 pb-4 pt-0 text-[length:var(--component-font-size)] text-ink-secondary",
+        props.id === "to-do-list" ? "min-h-[41rem]" : "",
+      ]
+        .filter(Boolean)
+        .join(" ")}
+    >
+      {props.title != null && props.title !== "" && (
+        <h2 className="-mx-4 mb-4 -mt-0 py-1.5 pl-4 pr-4 text-left text-xs font-light text-ink-tertiary">
+          {props.title.toUpperCase()}
+        </h2>
+      )}
+      {props.children}
+    </div>
+  );
 }
 
 export default PanelComponent;

@@ -1,8 +1,6 @@
-var getWeather = require("../getWeather");
+var getWeather = require("../dist/getWeather");
 var express = require("express");
 var router = express.Router();
-
-
 
 router.get("/", function (req, res, next) {
   let a = getWeather.fetchWeatherData();
@@ -10,10 +8,6 @@ router.get("/", function (req, res, next) {
     res.setHeader("content-type", "application/json");
     res.send(b);
   });
-
 });
-
-
-
 
 module.exports = router;
