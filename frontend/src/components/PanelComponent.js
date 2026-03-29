@@ -15,7 +15,7 @@ function PanelComponent(props) {
         .join(" ");
 
     const titleClass =
-        "float-none px-1 font-mono text-[0.65rem] font-normal uppercase tracking-wider text-ink-tertiary";
+        "shrink-0 float-none px-1 font-mono text-[0.65rem] font-normal uppercase tracking-wider text-ink-tertiary";
 
     const scrollBody = scrollable ? (
         <div className="scrollbar-panel min-h-0 flex-1 overflow-y-auto overflow-x-hidden overscroll-contain">
