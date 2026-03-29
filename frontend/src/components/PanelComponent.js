@@ -1,24 +1,34 @@
 import React from "react";
 
 function PanelComponent(props) {
-  return (
-    <div
-      id={props.id}
-      className={[
-        "relative overflow-hidden px-4 pb-4 pt-0 text-[length:var(--component-font-size)] text-ink-secondary",
+    const hasTitle = props.title != null && props.title !== "";
+    const frameClass = [
+        "relative m-0 min-w-0 overflow-hidden rounded-none border border-solid border-subtle-accent px-4 pb-4 text-[length:var(--component-font-size)] text-ink-secondary",
+        hasTitle ? "pt-2" : "pt-4",
         props.id === "to-do-list" ? "min-h-[41rem]" : "",
-      ]
+    ]
         .filter(Boolean)
-        .join(" ")}
-    >
-      {props.title != null && props.title !== "" && (
-        <h2 className="-mx-4 mb-4 -mt-0 py-1.5 pl-4 pr-4 text-left text-xs font-light text-ink-tertiary">
-          {props.title.toUpperCase()}
-        </h2>
-      )}
-      {props.children}
-    </div>
-  );
+        .join(" ");
+
+    const titleClass =
+        "float-none px-1 font-mono text-[0.65rem] font-normal uppercase tracking-wider text-ink-tertiary";
+
+    if (hasTitle) {
+        return (
+            <fieldset id={props.id} className={frameClass}>
+                <legend className={titleClass}>
+                    {" " + props.title.toUpperCase() + " "}
+                </legend>
+                {props.children}
+            </fieldset>
+        );
+    }
+
+    return (
+        <div id={props.id} className={frameClass}>
+            {props.children}
+        </div>
+    );
 }
 
 export default PanelComponent;

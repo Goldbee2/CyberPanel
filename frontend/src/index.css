@@ -23,6 +23,9 @@
     --theme-text-ghost: #a8a8a0;
     --theme-text-accent: #141412;
 
+    /* Hairline UI chrome (panel frames, faint rules) — subtler than tertiary text */
+    --theme-accent-subtle: #c9c9c4;
+
     --component-font-size: 16px;
 
     /* Google Calendar event accent colors */
@@ -51,6 +54,8 @@
     --theme-text-dim: #555550;
     --theme-text-ghost: #333330;
     --theme-text-accent: #ffffff;
+
+    --theme-accent-subtle: #2a2a28;
 
     --theme-todo-mono: #ffffff;
   }

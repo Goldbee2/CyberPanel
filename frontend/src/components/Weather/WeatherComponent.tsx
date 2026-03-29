@@ -24,25 +24,34 @@ function WeatherComponent() {
     const humidity = weather.main.humidity;
     const windSpeed = weather.wind?.speed;
     const windDeg = windDirectionLabel(weather.wind?.deg);
+    const units = weather.units;
 
     const detailParts: { label: string; value: string }[] = [];
     if (typeof feels === "number" && Number.isFinite(feels)) {
+        const feelsWithUnit =
+            units === "metric"
+                ? `${Math.round(feels)}°C`
+                : units === "standard"
+                  ? `${Math.round(feels)} K`
+                  : `${Math.round(feels)}°F`;
         detailParts.push({
             label: "FEELS LIKE",
-            value: Math.round(feels).toString(),
+            value: feelsWithUnit,
         });
     }
     if (typeof humidity === "number" && Number.isFinite(humidity)) {
         detailParts.push({
             label: "HUMIDITY",
-            value: Math.round(humidity).toString(),
+            value: `${Math.round(humidity)}%`,
         });
     }
     if (typeof windSpeed === "number" && Number.isFinite(windSpeed)) {
+        const windUnit =
+            units === "metric" || units === "standard" ? "m/s" : "mph";
         const dir = windDeg ? ` ${windDeg}` : "";
         detailParts.push({
             label: "WIND",
-            value: Math.round(windSpeed).toString() + dir,
+            value: `${Math.round(windSpeed)} ${windUnit}${dir}`,
         });
     }
 
@@ -58,18 +67,13 @@ function WeatherComponent() {
                 </p>
                 {detailParts.length > 0 ? (
                     <div className="flex flex-row gap-6">
-                        <DetailPart
-                            label="FEELS LIKE"
-                            value={Math.round(feels ?? 0).toString()}
-                        />
-                        <DetailPart
-                            label="HUMIDITY"
-                            value={Math.round(humidity ?? 0).toString()}
-                        />
-                        <DetailPart
-                            label="WIND"
-                            value={Math.round(windSpeed ?? 0).toString()}
-                        />
+                        {detailParts.map((part) => (
+                            <DetailPart
+                                key={part.label}
+                                label={part.label}
+                                value={part.value}
+                            />
+                        ))}
                     </div>
                 ) : null}
             </div>

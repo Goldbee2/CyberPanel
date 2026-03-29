@@ -22,6 +22,7 @@ module.exports = {
         todo: {
           mono: "var(--theme-todo-mono)",
         },
+        "subtle-accent": "var(--theme-accent-subtle)",
       },
       fontFamily: {
         display: ["var(--font-display)", "ui-serif", "Georgia", "serif"],
