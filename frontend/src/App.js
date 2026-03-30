@@ -24,7 +24,7 @@ function ThemeToggle() {
         <button
             type="button"
             onClick={toggleTheme}
-            className="text-xs text-ink-secondary transition-colors hover:text-ink"
+            className="m-0 inline-flex items-center justify-center p-0 text-xs leading-none text-ink-secondary transition-colors hover:text-ink"
         >
             {theme === "dark" ? "Light" : "Dark"}
         </button>
@@ -57,7 +57,7 @@ function Main() {
                     aria-hidden
                 />
                 <div className="relative z-10 flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
-                    <div className="flex h-[30px] w-full shrink-0 items-center justify-between gap-4 px-6 py-0.5">
+                    <div className="flex h-fit w-full shrink-0 items-center justify-between gap-4 px-6 pb-1 pt-3">
                         <ServerStatusComponent />
                         <ThemeToggle />
                     </div>
