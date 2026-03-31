@@ -23,6 +23,7 @@ export function craPublicAsset(path: string): string {
 
 const stormClouds = backendPublicAsset("/weather-icons/storm-clouds.webp");
 const partlyCloudy = backendPublicAsset("/weather-icons/partly-cloudy.webp");
+const scatteredClouds = backendPublicAsset("/weather-icons/scattered-clouds.webp");
 
 /**
  * Custom icons keyed by OpenWeather `weather[].icon` (e.g. `10d`, `01n`).
@@ -35,6 +36,8 @@ export const customWeatherIconUrls: Partial<Record<string, string>> = {
   "04n": stormClouds,
   "02d": partlyCloudy,
   "02n": partlyCloudy,
+  "03d": scatteredClouds,
+  "03n": scatteredClouds,
 };
 
 export function openWeatherIconUrl(
