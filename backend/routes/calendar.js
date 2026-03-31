@@ -6,7 +6,10 @@ router.get("/", function (req, res, next) {
   
   const oauth2Client = req.app.get("oauth2Client");
 
-  if (oauth2Client.credentials.access_token) {
+  if (
+    oauth2Client.credentials.access_token ||
+    oauth2Client.credentials.refresh_token
+  ) {
     console.log("RETRIEVING EVENTS");
     // This function is a clean code disaster--getEvents has side effects, does multiple things not listed under name
     let retrievedCalEvents = calendarFunctions.getEvents(oauth2Client);

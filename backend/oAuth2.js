@@ -18,6 +18,8 @@ function getRedirectURL(oauth2Client) {
   const authorizationURL = oauth2Client.generateAuthUrl({
     scope: scopes,
     include_granted_scopes: true,
+    access_type: "offline",
+    prompt: "consent",
   });
 
   // note: currently invalid request -- https://www.oauth.com/oauth2-servers/server-side-apps/possible-errors/ has some info
@@ -28,6 +30,7 @@ function getRedirectURL(oauth2Client) {
 }
 
 async function exchangeToken(oauth2Client, code) {
+  const existingRefreshToken = oauth2Client.credentials?.refresh_token;
   const tokenExchangeResponse = await oauth2Client
     .getToken(code)
     .catch((err) => {
@@ -36,7 +39,12 @@ async function exchangeToken(oauth2Client, code) {
     });
     
   if (tokenExchangeResponse) {
-    oauth2Client.setCredentials(tokenExchangeResponse.tokens);
+    const mergedTokens = {
+      ...tokenExchangeResponse.tokens,
+      refresh_token:
+        tokenExchangeResponse.tokens?.refresh_token || existingRefreshToken,
+    };
+    oauth2Client.setCredentials(mergedTokens);
     return true;
   }
   console.log("Error: token exchange failed");

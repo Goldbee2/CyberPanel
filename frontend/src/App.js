@@ -13,6 +13,7 @@ import {
 } from "./components/Weather/WeatherComponent";
 import WeatherProvider from "./components/Weather/WeatherProvider.tsx";
 import ServerStatusComponent from "./components/ServerStatusComponent";
+import TokenStatusComponent from "./components/TokenStatusComponent";
 import { useTheme } from "./components/Theme/ThemeProvider";
 import WeatherIcon from "./components/Weather/WeatherIcon.tsx";
 import grainSvgUrl from "./assets/noise.svg";
@@ -58,7 +59,10 @@ function Main() {
                 />
                 <div className="relative z-10 flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
                     <div className="flex h-fit w-full shrink-0 items-center justify-between gap-4 px-6 pb-1 pt-3">
-                        <ServerStatusComponent />
+                        <div className="inline-flex items-center gap-4">
+                            <ServerStatusComponent />
+                            <TokenStatusComponent />
+                        </div>
                         <ThemeToggle />
                     </div>
                     <main className="flex min-h-0 min-w-0 flex-1 flex-row gap-4 overflow-hidden p-4">
