@@ -38,12 +38,12 @@ export default function ServerStatusComponent() {
     }, []);
 
     return (
-        <div className="inline-flex items-center gap-2">
-            <p className="text-xs font-mono leading-none tracking-wide text-ink-tertiary">
+        <div className="inline-flex h-4 items-center gap-2">
+            <span className="inline-flex h-full items-center font-mono text-xs leading-none tracking-wide text-ink-tertiary">
                 SERVER_STATUS
-            </p>
+            </span>
             <span
-                className={`inline-flex h-[0.875rem] shrink-0 items-center justify-center font-mono text-sm leading-none select-none ${currentStatus === "green" ? "text-lime-400" : currentStatus === "yellow" ? "text-yellow-300" : "text-red-400"}`}
+                className={`inline-flex h-full shrink-0 items-center justify-center font-mono text-sm leading-none select-none ${currentStatus === "green" ? "text-lime-400" : currentStatus === "yellow" ? "text-yellow-300" : "text-red-400"}`}
                 aria-hidden
             >
                 {currentStatus === "green"
